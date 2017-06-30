@@ -3,12 +3,12 @@
     "allowSyntheticDefaultImports": true,
     "declaration": false,
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
+    "experimentalDecorators": true,        
     "lib": [
       "dom",
       "es2015"
     ],
-    "types": ["reflect-metadata", "express","elasticsearch"],
+    "types": ["reflect-metadata"],
     "module": "es2015",
     "moduleResolution": "node",
     "sourceMap": true,
