@@ -1,0 +1,95 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{ED1A23FA-740F-4895-99CB-98420467D850}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A281F624-67E7-4E99-AE46-812577EBF9D5}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "BloodFloater.Web.Api", "src\BloodFloater.Web.Api\BloodFloater.Web.Api.xproj", "{AA742D1C-B829-4ADD-9AEA-B60C74989807}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "BloodFloater.Core", "src\BloodFloater.Core\BloodFloater.Core.xproj", "{F28FACDC-3401-4212-8964-78FBE14FCD75}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "BloodFloater.DAL", "src\BloodFloater.DAL\BloodFloater.DAL.xproj", "{019A3C2D-C668-4DAF-9054-A38E506885B5}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "BloodFloater.DAL.Impl", "src\BloodFloater.DAL.Impl\BloodFloater.DAL.Impl.xproj", "{231898E8-565A-4CD5-8345-7C090C817CD8}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "BloodFloater.Services", "src\BloodFloater.Services\BloodFloater.Services.xproj", "{8E6B7E75-FF5A-41D0-A616-477214991CCC}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "BloodFloater.Services.Impl", "src\BloodFloater.Services.Impl\BloodFloater.Services.Impl.xproj", "{D472C2A6-4043-48FE-9760-CFC289CF6EF2}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "BloodFloater.Models", "src\BloodFloater.Models\BloodFloater.Models.xproj", "{FCFCB859-F826-4020-9AE4-10CF9E2F5E28}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "BloodFloater.Infrastructure", "src\BloodFloater.Infrastructure\BloodFloater.Infrastructure.xproj", "{930DB317-0430-4433-A3CA-3A86DE457766}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "BloodFloater.ViewModels", "src\BloodFloater.ViewModels\BloodFloater.ViewModels.xproj", "{B83A02A0-22D9-4DFC-87F2-378E2D672BF6}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "BloodFloater.Web.UI", "src\BloodFloater.Web.UI\BloodFloater.Web.UI.xproj", "{7FEB77BD-174A-4715-B0DA-6448A4BAA565}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AA742D1C-B829-4ADD-9AEA-B60C74989807}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA742D1C-B829-4ADD-9AEA-B60C74989807}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA742D1C-B829-4ADD-9AEA-B60C74989807}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA742D1C-B829-4ADD-9AEA-B60C74989807}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F28FACDC-3401-4212-8964-78FBE14FCD75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F28FACDC-3401-4212-8964-78FBE14FCD75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F28FACDC-3401-4212-8964-78FBE14FCD75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F28FACDC-3401-4212-8964-78FBE14FCD75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{019A3C2D-C668-4DAF-9054-A38E506885B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{019A3C2D-C668-4DAF-9054-A38E506885B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{019A3C2D-C668-4DAF-9054-A38E506885B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{019A3C2D-C668-4DAF-9054-A38E506885B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{231898E8-565A-4CD5-8345-7C090C817CD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{231898E8-565A-4CD5-8345-7C090C817CD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{231898E8-565A-4CD5-8345-7C090C817CD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{231898E8-565A-4CD5-8345-7C090C817CD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E6B7E75-FF5A-41D0-A616-477214991CCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E6B7E75-FF5A-41D0-A616-477214991CCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E6B7E75-FF5A-41D0-A616-477214991CCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E6B7E75-FF5A-41D0-A616-477214991CCC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D472C2A6-4043-48FE-9760-CFC289CF6EF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D472C2A6-4043-48FE-9760-CFC289CF6EF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D472C2A6-4043-48FE-9760-CFC289CF6EF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D472C2A6-4043-48FE-9760-CFC289CF6EF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCFCB859-F826-4020-9AE4-10CF9E2F5E28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCFCB859-F826-4020-9AE4-10CF9E2F5E28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCFCB859-F826-4020-9AE4-10CF9E2F5E28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCFCB859-F826-4020-9AE4-10CF9E2F5E28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{930DB317-0430-4433-A3CA-3A86DE457766}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{930DB317-0430-4433-A3CA-3A86DE457766}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{930DB317-0430-4433-A3CA-3A86DE457766}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{930DB317-0430-4433-A3CA-3A86DE457766}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B83A02A0-22D9-4DFC-87F2-378E2D672BF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B83A02A0-22D9-4DFC-87F2-378E2D672BF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B83A02A0-22D9-4DFC-87F2-378E2D672BF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B83A02A0-22D9-4DFC-87F2-378E2D672BF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FEB77BD-174A-4715-B0DA-6448A4BAA565}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FEB77BD-174A-4715-B0DA-6448A4BAA565}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FEB77BD-174A-4715-B0DA-6448A4BAA565}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FEB77BD-174A-4715-B0DA-6448A4BAA565}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AA742D1C-B829-4ADD-9AEA-B60C74989807} = {ED1A23FA-740F-4895-99CB-98420467D850}
+		{F28FACDC-3401-4212-8964-78FBE14FCD75} = {ED1A23FA-740F-4895-99CB-98420467D850}
+		{019A3C2D-C668-4DAF-9054-A38E506885B5} = {ED1A23FA-740F-4895-99CB-98420467D850}
+		{231898E8-565A-4CD5-8345-7C090C817CD8} = {ED1A23FA-740F-4895-99CB-98420467D850}
+		{8E6B7E75-FF5A-41D0-A616-477214991CCC} = {ED1A23FA-740F-4895-99CB-98420467D850}
+		{D472C2A6-4043-48FE-9760-CFC289CF6EF2} = {ED1A23FA-740F-4895-99CB-98420467D850}
+		{FCFCB859-F826-4020-9AE4-10CF9E2F5E28} = {ED1A23FA-740F-4895-99CB-98420467D850}
+		{930DB317-0430-4433-A3CA-3A86DE457766} = {ED1A23FA-740F-4895-99CB-98420467D850}
+		{B83A02A0-22D9-4DFC-87F2-378E2D672BF6} = {ED1A23FA-740F-4895-99CB-98420467D850}
+		{7FEB77BD-174A-4715-B0DA-6448A4BAA565} = {ED1A23FA-740F-4895-99CB-98420467D850}
+	EndGlobalSection
+EndGlobal

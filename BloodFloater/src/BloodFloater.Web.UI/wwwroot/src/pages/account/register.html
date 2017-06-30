@@ -1,0 +1,41 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>New User</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+    <form [formGroup]="signUpForm" (ngSubmit)="onSubmitForm()" #newform="ngForm">
+        <ion-list>
+            <ion-item>
+                <ion-label floating>Username</ion-label>
+                <ion-input type="text" formControlName="UserName" name="username" required></ion-input>                 
+            </ion-item>
+            <ion-item *ngIf="INVALID_USER_NAME">
+                <p ion-text color="danger">User already exists</p>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Full Name</ion-label>
+                <ion-input type="text" formControlName="FullName" name="fullName" required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Email</ion-label>
+                <ion-input type="email" formControlName="EmailId" name="emailid" required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Password</ion-label>
+                <ion-input type="password" formControlName="Password" name="password" required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Confirm Password</ion-label>
+                <ion-input type="password" formControlName="ConfirmPassword" name="confirmpassword" required></ion-input>
+            </ion-item>
+        </ion-list>
+        <div padding>
+            <button ion-button color="primary" block [disabled]="!newform.form.valid">Register</button>
+        </div>
+    </form>
+    <div *ngIf="isAccountCreated"> 
+        <div>Your account created succesfully</div>
+    </div>
+
+</ion-content>
