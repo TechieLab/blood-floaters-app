@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using BloodFloater.Models;
 
-namespace BloodFloater.DAL
+namespace BloodFloater.Services
 {
-    public interface IUserRepository : IBaseRepository<User>
+    public interface ISearchService
     {
-        User GetByName(string userName);
+        List<Donor> FindDonor();
     }
 }

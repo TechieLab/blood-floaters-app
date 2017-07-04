@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BloodFloater.Infrastructure
+namespace BloodFloater.ViewModels
 {
-    public class Class1
+    public class Receiver
     {
-        public Class1()
-        {
-        }
+
     }
 }

@@ -24,7 +24,7 @@ namespace BloodFloater.Web.Api.Controllers
         [HttpGet]
         public IList<TEntity> Get()
         {
-            return _baseService.GetAll();
+            return _baseService.Get(null);
         }
 
         // GET api/values/5

@@ -4,23 +4,29 @@
           <ion-icon name="menu"></ion-icon>
         </button>
     <ion-title>Search</ion-title>
-    <ion-buttons end>
-      <button buttons-end ion-button (click)="gotoFiltersPage()">
-                  <ion-icon name="funnel"></ion-icon>
-            </button>
-    </ion-buttons>
   </ion-navbar>
 </ion-header>
 <ion-content no-padding>
-  <ion-searchbar padding [formControl]="search"></ion-searchbar>
-  <!--<ion-list padding *ngIf="items.length"> 
-    <ion-item *ngFor="let item of items" (click)="gotoCatalogPage(item)">
-      <ion-avatar item-left>
-        <ion-icon name="search"></ion-icon>
-      </ion-avatar>
-      <h2>{{item._source.Title}}</h2>
-      <p>{{item._source.Product.Category}}</p>
-    </ion-item>
-  </ion-list>-->
- 
+  <form #newform="ngForm">
+    <ion-card>
+      <ion-card-content>
+        <ion-card-title>
+          Search Donors
+        </ion-card-title>
+        <ion-item>
+          <ion-label floating>Blood Group</ion-label>
+          <ion-select name="category" [(ngModel)]="criteria.FullName">
+            <ion-option value="{{bg}}" *ngFor="let bg of bloodGroups">{{bg}}</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>Location</ion-label>
+          <ion-input type="text" name="location" [(ngModel)]="criteria.Location"></ion-input>
+        </ion-item>
+         <ion-item>
+          <button ion-button  padding block (click)="searchDonor()">Find</button>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>    
+  </form>
 </ion-content>

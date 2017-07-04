@@ -6,8 +6,8 @@ using BloodFloater.Models;
 
 namespace BloodFloater.DAL
 {
-    public interface IUserRepository : IBaseRepository<User>
+    public interface IReceiverRepository : IBaseRepository<Receiver>
     {
-        User GetByName(string userName);
+       
     }
 }

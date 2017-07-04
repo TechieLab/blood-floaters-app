@@ -2,11 +2,14 @@
   <header-component></header-component>
 </ion-header>
 <ion-content>
-  <!--<ion-fab right bottom>
-    <button ion-fab color="danger" (click)="gotoPostingAdPage()">
-            <span class="button-inner">
-              Post Ad
-          </span>
+  <ion-list>    
+    <ion-item>
+      <button padding ion-button block color="danger" (click)="gotoSearchPage()">
+            Search Donor
      </button>
-  </ion-fab>-->
+      <button padding ion-button block color="danger" (click)="gotoRequestBloodPage()">
+            Request for Blood
+     </button>
+    </ion-item>
+  </ion-list>
 </ion-content>

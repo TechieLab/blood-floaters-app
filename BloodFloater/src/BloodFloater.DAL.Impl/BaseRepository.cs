@@ -16,7 +16,7 @@ namespace BloodFloater.DAL.Impl
         protected BaseRepository(IMongoDbManager dbManager)
         {
             dbManager.Connect("mongodb://localhost:27017");
-            dbManager.SetDatabase("bloodfloaterdb");
+            dbManager.SetDatabase("blood-floaterdb");
         }
 
         protected void SetCollection(IMongoCollection<TEntity> mongoCollection)
@@ -40,15 +40,15 @@ namespace BloodFloater.DAL.Impl
         public TEntity Get(ObjectId id)
         {
             var query = Builders<TEntity>.Filter.Eq("_id", id);
-            var speaker = _mongoCollection.Find(query).ToListAsync();
+            var res = _mongoCollection.Find(query).ToListAsync();
 
-            return speaker.Result.FirstOrDefault();
+            return res.Result.FirstOrDefault();
         }
 
-        public List<TEntity> GetAll()
+        public List<TEntity> Get(FilterDefinition<TEntity> filter, int? pageSize = 25, int? pageNumber = 1)
         {
-            var entities = _mongoCollection.AsQueryable<TEntity>().ToList<TEntity>();
-            return entities;
+            var list = _mongoCollection.Find(filter);
+            return list.Skip(pageNumber*pageSize).ToList<TEntity>();
         }
 
         public void Update(ObjectId id, TEntity entity)
@@ -61,6 +61,5 @@ namespace BloodFloater.DAL.Impl
         {
 
         }
-
     }
 }

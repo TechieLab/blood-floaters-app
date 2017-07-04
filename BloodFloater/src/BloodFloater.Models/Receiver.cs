@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BloodFloater.DAL.Impl
+namespace BloodFloater.Models
 {
-    public class Class1
+    public class Receiver : BaseEntity
     {
-        public Class1()
-        {
-        }
+
     }
 }

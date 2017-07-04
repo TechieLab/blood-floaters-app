@@ -33,9 +33,9 @@ namespace BloodFloater.Services.Impl
             return _repository.Get(id);
         }
 
-        public List<TEntity> GetAll()
+        public List<TEntity> Get(FilterDefinition<TEntity> filter, int? pageSize = 25, int? pageNumber = 1)
         {
-            return _repository.GetAll();
+            return _repository.Get(filter, pageSize, pageNumber);
         }
 
         public void Update(ObjectId id, TEntity entity)

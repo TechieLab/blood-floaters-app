@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BloodFloater.Services
 {
    public interface IUserService : IBaseService<User>
-    {
-
-    }
+   {
+       User ValidateUser(string userName, string pwd);
+   }
 }

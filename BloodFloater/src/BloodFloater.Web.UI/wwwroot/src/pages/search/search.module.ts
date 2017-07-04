@@ -5,13 +5,14 @@ import { ModalController, NavController, NavParams } from 'ionic-angular';
 import { FormControl } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
-import {SearchPage} from '../search/search.page';
+import {SearchPage} from './search.page';
+import {ISearchService, SearchService} from './search.service'
 
 @NgModule({
     declarations:[SearchPage],    
     exports:[SearchPage],
     imports:[IonicModule, FormsModule, ReactiveFormsModule],
-    providers:[],
+    providers:[SearchService],
     entryComponents: []
 })
 
