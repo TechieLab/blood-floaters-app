@@ -3,8 +3,13 @@
 
   "dependencies": {
     "AutoMapper": "6.1.1",
+    "BloodFloater.DAL": "1.0.0",
+    "BloodFloater.DAL.Impl": "1.0.0",
     "BloodFloater.Models": "1.0.0",
+    "BloodFloater.Services": "1.0.0",
+    "BloodFloater.Services.Impl": "1.0.0",
     "BloodFloater.ViewModels": "1.0.0",
+    "Microsoft.Extensions.DependencyInjection.Abstractions": "1.1.0",
     "MongoDB.Bson": "2.4.4",
     "NETStandard.Library": "1.6.1"
   },

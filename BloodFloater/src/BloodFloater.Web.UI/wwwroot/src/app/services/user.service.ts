@@ -20,6 +20,6 @@ export class UserService extends BaseService<User> implements IUserService {
         var params = new URLSearchParams();
         params.set('UserName', userName );
 
-        return this.getByQuery(params);
+        return this.action('getUserByName').getByQuery(params);
     }
 }

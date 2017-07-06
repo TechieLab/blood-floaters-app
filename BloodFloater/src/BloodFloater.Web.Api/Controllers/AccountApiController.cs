@@ -1,12 +1,13 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using BloodFloater.Services;
 using BloodFloater.ViewModels;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using DomainModels = BloodFloater.Models;
@@ -14,6 +15,7 @@ using DomainModels = BloodFloater.Models;
 namespace BloodFloater.Web.Api.Controllers
 {
     [Route("api/account")]
+    [DisableCors]
     public class AccountApiController
     {
         private readonly IUserService _userService;
@@ -34,13 +36,13 @@ namespace BloodFloater.Web.Api.Controllers
                 if (user != null)
                 {
                     List<Claim> claims = new List<Claim>();
-                    Claim claim = new Claim(ClaimTypes.Role, "Admin", ClaimValueTypes.String, model.Username);
+
+                    Claim claim = new Claim(ClaimTypes.Role, "User", ClaimValueTypes.String, model.Username);
                     claims.Add(claim);
-
-                    await HttpContext.Authentication.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                        new ClaimsPrincipal(new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme)),
-                        new Microsoft.AspNetCore.Http.Authentication.AuthenticationProperties { IsPersistent = model.RememberMe });
-
+                    
+                    //await HttpContext.Authentication.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                    //    new ClaimsPrincipal(new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme)),
+                    //    new Microsoft.AspNetCore.Http.Authentication.AuthenticationProperties { IsPersistent = model.RememberMe });
 
                     result.Success = true;
                     result.Message = "Authentication succeeded";
@@ -68,7 +70,7 @@ namespace BloodFloater.Web.Api.Controllers
         {
             try
             {
-                await HttpContext.Authentication.SignOutAsync("Cookies");
+               // await HttpContext.Authentication.SignOutAsync("Cookies");
 
             }
             catch (Exception ex)
@@ -98,6 +100,7 @@ namespace BloodFloater.Web.Api.Controllers
                 };
 
                 _userService.Create(Mapper.Map<ViewModels.User, DomainModels.User>(tempUser));
+
                 result.Success = true;
                 result.Message = "Registration succeeded";
             }

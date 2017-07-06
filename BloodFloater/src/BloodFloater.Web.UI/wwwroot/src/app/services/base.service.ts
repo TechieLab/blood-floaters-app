@@ -9,14 +9,13 @@ import { Constants } from '../common/constants';
 import { StorageService } from './storage.service';
 
 export interface IBaseService<TEntity> {
-    get(): Observable<Array<TEntity>>;
-    getAll(): Observable<Array<TEntity>>;
+    get(): Observable<Array<TEntity>>;  
     getById(id: string): Observable<TEntity>;
-    getByQuery(params: URLSearchParams): Observable<Array<TEntity>>;
-    getAllByQuery(params: URLSearchParams): Observable<Array<TEntity>>;
+    getByQuery(params: URLSearchParams): Observable<Array<TEntity>>;    
     post(entity: TEntity): Observable<Result>;
     put(entity: TEntity): Observable<Result>;
-    del(id: string): Observable<Result>
+    del(id: string): Observable<Result>;
+    action(actionName: string);
 }
 
 @Injectable()
@@ -25,27 +24,26 @@ export class BaseService<TEntity> implements IBaseService<TEntity> {
     url: string;
     entity: TEntity;
     options: RequestOptions;
+    actionName : string
 
     constructor( @Optional() public http: Http, public entityName: string) {
         this.url = Constants.BaseApi + '/api/' + entityName;
         this.setAuthHeader();
     }
 
+    action(actionName : string){
+        if(!this.actionName){
+            this.actionName = actionName;
+            this.url = this.url + '/' + actionName;
+        }
+        return this;
+    }
+
     // this method used to get all records with respect to a userId
     get(): Observable<Array<TEntity>> {
         this.setAuthHeader();
         return this.http.get(this.url, this.options).map(this.extractData).catch(this.handleError);
-    }
-
-    // this method used to get all records with without userId
-    getAll(): Observable<Array<TEntity>> {
-        let headers = new Headers({ 'Content-Type': 'application/json'});
-        this.options = new RequestOptions({
-            headers: headers
-        });
-        var url = Constants.BaseApi + '/api/all-' + this.entityName;
-        return this.http.get(url, this.options).map(this.extractData).catch(this.handleError);
-    }
+    }  
 
     getById(id: string): Observable<TEntity> {
         var url = this.url + '/' + id;
@@ -56,13 +54,6 @@ export class BaseService<TEntity> implements IBaseService<TEntity> {
     getByQuery(params: URLSearchParams): Observable<Array<TEntity>> {
         var url = this.url + '/';
         this.setAuthHeader();
-        this.options.search = params;
-        return this.http.get(url, this.options).map(this.extractData).catch(this.handleError);
-    }
-
-    getAllByQuery(params: URLSearchParams): Observable<Array<TEntity>> {
-        this.setHeader();
-        var url = Constants.BaseApi + '/api/all-' + this.entityName;
         this.options.search = params;
         return this.http.get(url, this.options).map(this.extractData).catch(this.handleError);
     }
@@ -91,7 +82,7 @@ export class BaseService<TEntity> implements IBaseService<TEntity> {
 
     extractData(res: Response) {
         let body = res.json();
-        return body.data || body;
+        return body ? body.data || body : null;
     }
 
     handleError(error: any) {

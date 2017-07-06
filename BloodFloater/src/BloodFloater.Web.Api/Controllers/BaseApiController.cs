@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using BloodFloater.Services;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 
@@ -10,42 +12,43 @@ using MongoDB.Bson;
 
 namespace BloodFloater.Web.Api.Controllers
 {
-    [Route("api/[controller]")]
-    public class BaseApiController<TEntity> : Controller where TEntity : class
+    [Route("api/[controller]/[action]")]
+    [DisableCors]
+    public class BaseApiController<TSEntity, TDEntity> : Controller where TSEntity : class where TDEntity : class
     {
-        private readonly IBaseService<TEntity> _baseService;
+        private readonly IBaseService<TSEntity> _baseService;
 
-        public BaseApiController(IBaseService<TEntity> baseService )
+        public BaseApiController(IBaseService<TSEntity> baseService )
         {
             this._baseService = baseService;
         }
 
         // GET: api/values
         [HttpGet]
-        public IList<TEntity> Get()
+        public IList<TDEntity> Get()
         {
-            return _baseService.Get(null);
+            return Mapper.Map<List<TSEntity>,List<TDEntity>>(_baseService.Get(null));
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public TEntity Get(ObjectId id)
+        public TDEntity Get(ObjectId id)
         {
-            return _baseService.Get(id);
+            return Mapper.Map<TSEntity, TDEntity>(_baseService.Get(id));
         }
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]TEntity value)
+        public void Post([FromBody]TDEntity value)
         {
-            _baseService.Create(value);
+            _baseService.Create(Mapper.Map<TDEntity, TSEntity>(value));
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(ObjectId id, [FromBody]TEntity value)
+        public void Put(ObjectId id, [FromBody]TDEntity value)
         {
-            _baseService.Update(id,value);
+            _baseService.Update(id, Mapper.Map<TDEntity, TSEntity>(value));
         }
 
         // DELETE api/values/5

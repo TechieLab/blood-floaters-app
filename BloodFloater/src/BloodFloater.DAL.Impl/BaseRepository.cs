@@ -47,6 +47,11 @@ namespace BloodFloater.DAL.Impl
 
         public List<TEntity> Get(FilterDefinition<TEntity> filter, int? pageSize = 25, int? pageNumber = 1)
         {
+            if (filter == null)
+            {
+                return _mongoCollection.AsQueryable().Take(100).ToList();
+            }
+
             var list = _mongoCollection.Find(filter);
             return list.Skip(pageNumber*pageSize).ToList<TEntity>();
         }

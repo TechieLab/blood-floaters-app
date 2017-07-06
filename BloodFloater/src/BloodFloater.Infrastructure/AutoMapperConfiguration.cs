@@ -15,6 +15,7 @@ namespace BloodFloater.Infrastructure
                 x.AddProfile<DomainToViewModelMappingProfile>();
                 //x.AddProfile<ViewModelToDomainMappingProfile>();
             });
+            
         }
     }
 }

@@ -39,7 +39,7 @@ export class AccountService implements IAccountService {
         user.Profile.FullName = data.FullName;
         user.Profile.Contact.EmailId = data.EmailId;      
 
-        return this.http.post(this.url + 'signup', user, this.options)
+        return this.http.post(this.url + 'register', user, this.options)
             .map(this.extractData).catch(this.handleError);
     }
 

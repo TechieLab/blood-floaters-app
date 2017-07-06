@@ -23,12 +23,12 @@ export class RegisterPage {
     private  INVALID_USER_NAME : boolean = false;
 
     public signUpForm = this.builder.group({
-        UserName: ['', Validators.compose([Validators.minLength(6)
+        UserName: ['', Validators.compose([Validators.minLength(3)
             , Validators.required
             , Validators.pattern('[a-zA-Z]*')])
             , this.checkUsername.bind(this)
         ],
-        Password: ['', Validators.compose([Validators.minLength(6)
+        Password: ['', Validators.compose([Validators.minLength(3)
             , Validators.required
         ])],
         FullName: [""],
@@ -46,15 +46,11 @@ export class RegisterPage {
         return new Promise(resolve => {
             this.userService.getByUserName(control.value).subscribe(
                 data => {
-                    if (typeof data[0] !== "undefined") {
-                        if (data.length) {
-                          this.INVALID_USER_NAME = true;
-                        } else {
-                            resolve(null);
-                        }
+                    if (data) {                        
+                        this.INVALID_USER_NAME = true;
                     } else {
                         resolve(null);
-                    }
+                    }                    
                 },
                 err => { console.log('Error:'); console.log(err); }
             )

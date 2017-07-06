@@ -22,5 +22,10 @@ namespace BloodFloater.Services.Impl
         {
             return _userRepository.GetByName(userName);
         }
+
+        public User GetUserByName(string userName)
+        {
+            return _userRepository.GetByName(userName);
+        }
     }
 }
