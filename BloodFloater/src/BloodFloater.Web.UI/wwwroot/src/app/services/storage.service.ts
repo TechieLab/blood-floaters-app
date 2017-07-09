@@ -14,6 +14,14 @@ export class StorageService {
         localStorage.setItem(key, item);
     }
 
+    static getUserId(): any {
+        return localStorage.getItem(Client_Id);
+    }
+
+    static setUserId(item: any): any {
+        localStorage.setItem(Client_Id, item);
+    }
+
     static hasContext(): boolean {
         return !!this.getItem(App_Context);
     }
@@ -41,10 +49,10 @@ export class StorageService {
         }
     }
     static setToken(response: any): void {
-        localStorage.setItem(User_Name, response.UserName);
-        localStorage.setItem(Auth_Token, response.Token);
-        localStorage.setItem(Client_Id, response.ClientId);
-        localStorage.setItem(Email_Id, response.EmailId);
+        localStorage.setItem(User_Name, response.userName);
+        localStorage.setItem(Auth_Token, response.access_token);
+        localStorage.setItem(Client_Id, response.userId);
+        localStorage.setItem(Email_Id, response.emailId);
     }
    
     static removeToken(): void {

@@ -1,14 +1,22 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using System.Security.Claims;
+using System.Text;
 using BloodFloater.Core;
 using BloodFloater.Infrastructure;
+using BloodFloater.Web.Api.Helpers;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
+using Microsoft.IdentityModel.Tokens;
 
 namespace BloodFloater.Web.Api
 {
@@ -35,6 +43,10 @@ namespace BloodFloater.Web.Api
         public IConfigurationRoot Configuration { get; set; }
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
+
+        private const string SecretKey = "needtogetthisfromenvironment";
+        private readonly SymmetricSecurityKey _signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(SecretKey));
+
         public void ConfigureServices(IServiceCollection services)
         {
             // Repositories
@@ -43,43 +55,63 @@ namespace BloodFloater.Web.Api
             // Services
             ConfigureServiceImpl.Register(services);
 
+            services.AddOptions();
+
             services.AddSingleton<IMongoDbManager, MongoDbManager>();
 
             services.AddAuthentication();
 
             // Polices
-            services.AddAuthorization(options =>
-            {
-                // inline policies
-                options.AddPolicy("AdminOnly", policy =>
+            services.AddAuthorization(auth =>
                 {
-                    policy.RequireClaim(ClaimTypes.Role, "Admin");
-                });
-
-            });
+                    auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
+                        .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                        .RequireAuthenticatedUser().Build());
+                }
+            );
 
             services.AddCors(options =>
             {
-                options.AddPolicy("AllowSpecificOrigin",
-                    builder => builder.WithOrigins("http://localhost:8100")
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .AllowCredentials());
             });
 
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy("AllowSpecificOrigin",
+            //        builder => builder.WithOrigins("http://localhost:8100")
+            //        .AllowAnyMethod()
+            //        .AllowAnyHeader()
+            //        .AllowCredentials());
+            //});
+
             // Add MVC services to the services container.
-            services.AddMvc()
-            .AddJsonOptions(opt =>
+            services.AddMvc(config =>
             {
-                var resolver = opt.SerializerSettings.ContractResolver;
-                var res = resolver as DefaultContractResolver;
-                if (res != null) res.NamingStrategy = null;
+                var policy = new AuthorizationPolicyBuilder()
+                                 .RequireAuthenticatedUser()
+                                 .Build();
+                config.Filters.Add(new AuthorizeFilter(policy));
             });
 
             services.Configure<MvcOptions>(options =>
             {
-                options.Filters.Add(new CorsAuthorizationFilterFactory("AllowSpecificOrigin"));
+                options.Filters.Add(new CorsAuthorizationFilterFactory("CorsPolicy"));
             });
+
+            var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
+
+            // Configure JwtIssuerOptions
+            services.Configure<JwtIssuerOptions>(options =>
+            {
+                options.Issuer = jwtAppSettingOptions[nameof(JwtIssuerOptions.Issuer)];
+                options.Audience = jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)];
+                options.SigningCredentials = new SigningCredentials(_signingKey, SecurityAlgorithms.HmacSha256);
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -98,11 +130,33 @@ namespace BloodFloater.Web.Api
             app.UseStaticFiles();
 
             AutoMapperConfiguration.Configure();
+            //app.UseCors("CorsPolicy");
 
-            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            //app.UseCors("AllowSpecificOrigin");
+
+            var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidIssuer = jwtAppSettingOptions[nameof(JwtIssuerOptions.Issuer)],
+
+                ValidateAudience = true,
+                ValidAudience = jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)],
+
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = _signingKey,
+
+                RequireExpirationTime = true,
+                ValidateLifetime = true,
+
+                ClockSkew = TimeSpan.FromMinutes(0)
+        };
+
+            app.UseJwtBearerAuthentication(new JwtBearerOptions
             {
                 AutomaticAuthenticate = true,
-                AutomaticChallenge = true
+                AutomaticChallenge = true,
+                TokenValidationParameters = tokenValidationParameters
             });
 
             // Custom authentication middleware
@@ -112,7 +166,7 @@ namespace BloodFloater.Web.Api
             // Add MVC to the request pipeline.
             app.UseMvc();
 
-            app.UseCors("AllowSpecificOrigin");
+           
 
             if (env.IsDevelopment())
             {

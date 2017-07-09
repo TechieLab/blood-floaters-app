@@ -44,7 +44,7 @@ export class AccountService implements IAccountService {
     }
 
     login(data: Login) {
-        return this.http.post(this.url + 'login', data, this.options)
+        return this.http.post(Constants.JwtAuthApi + 'authenticate', data, this.options)
             .map(this.extractData).catch(this.handleError);
     }
 

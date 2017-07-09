@@ -16,10 +16,14 @@ export class HomePage implements OnInit {
     ngOnInit() {}
 
     gotoSearchPage() {
-        this
-            .navCtrl
-            .push(SearchPage);
+        this.navCtrl.push(SearchPage);
     }
 
-    gotoRequestBloodPage() {}
+    gotoRequestBloodPage() {
+
+    }
+
+    gotoRegisterDonorPage(){
+
+    }
 }

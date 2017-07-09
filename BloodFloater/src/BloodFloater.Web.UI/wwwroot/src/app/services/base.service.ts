@@ -27,7 +27,7 @@ export class BaseService<TEntity> implements IBaseService<TEntity> {
     actionName : string
 
     constructor( @Optional() public http: Http, public entityName: string) {
-        this.url = Constants.BaseApi + '/api/' + entityName;
+        this.url = Constants.BaseApi + 'api/' + entityName;
         this.setAuthHeader();
     }
 
@@ -96,7 +96,7 @@ export class BaseService<TEntity> implements IBaseService<TEntity> {
     }
 
     setAuthHeader() {
-        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': StorageService.getToken() });
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'bearer ' + StorageService.getToken() });
         this.options = new RequestOptions({
             headers: headers
         });

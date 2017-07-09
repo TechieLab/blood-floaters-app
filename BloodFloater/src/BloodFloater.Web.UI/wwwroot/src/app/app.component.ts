@@ -3,7 +3,7 @@ import { Events, Platform, MenuController, Nav } from 'ionic-angular';
 import { NavController, NavParams } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 import { OrderBy } from '../app/pipes/orderBy';
-
+import {tokenNotExpired} from 'angular2-jwt';
 import { AppComponents, featuredComponents, appPages, authPages } from './common/componentConstants';
 import { Welcome } from '../pages/welcome/welcome.page';
 import { ProfilePage } from '../pages/profile/profile.page';
@@ -13,8 +13,9 @@ import { HomePage } from '../pages/home/home.page';
 import { AuthGuard, IAuthGuard } from '../app/services/guard.service';
 import { AccountService, IAccountService } from '../pages/account/account.service';
 import { StorageService } from '../app/services/storage.service';
-import { ProfileService, IProfileService } from '../pages/profile/profile.service';
+import { UserService, IUserService } from '../app/services/user.service';
 import {Profile} from '../app/models/profile';
+import {User} from '../app/models/user';
 
 @Component({
   templateUrl: 'app.html',
@@ -36,7 +37,7 @@ export class MyApp implements OnInit {
     public events: Events,
     @Inject(AuthGuard) public authGuard: IAuthGuard,
     @Inject(AccountService) public accountService: IAccountService,
-    @Inject(ProfileService) public profileService: IProfileService
+    @Inject(UserService) public userService: IUserService
   ) {
 
     this.initializeApp();
@@ -44,10 +45,8 @@ export class MyApp implements OnInit {
     // set our app's pages
     this.pages = appPages;
 
-    this.profile = new Profile();
-
-    this.getUserContext();
-   // this.getProfile();
+    this.profile = new Profile(); 
+    
   }
 
   initializeApp() {
@@ -81,14 +80,10 @@ export class MyApp implements OnInit {
     }
   }
 
-  getUserContext() {
-    this.isUserAuthenticated = false;
-  }
-
   getProfile() {
-    this.profileService.getById(null).subscribe((result) => {
+    this.userService.getById(StorageService.getUserId()).subscribe((result) => {
       if (result) {
-        this.profile = result;
+        this.profile = result.Profile;
       }
     });
   }
@@ -108,19 +103,24 @@ export class MyApp implements OnInit {
     this.currentUserName = StorageService.getItem('User_Name');
 
     if (this.isUserAuthenticated) {
-      this.rootPage = HomePage;
-      this.pages = this.pages.concat(authPages);
-    } else {
-      this.rootPage = Welcome;
-    }
-
-    this.events.subscribe('user:login', (res) => {
-      this.isUserAuthenticated = this.authGuard.canActivate();
-      this.currentUserName = StorageService.getItem('User_Name');
-
-      if (this.isUserAuthenticated) {
-        this.pages = this.pages.concat(authPages);
+      if(tokenNotExpired(null,StorageService.getToken())){
+          this.rootPage = HomePage;
+          this.pages = this.pages.concat(authPages);
+          this.getProfile();
+        }else{
+          this.rootPage = LoginPage;
+        }
+      } else {
+        this.rootPage = Welcome;
       }
-    });
+
+      this.events.subscribe('user:login', (res) => {
+        this.isUserAuthenticated = this.authGuard.canActivate();
+        this.currentUserName = StorageService.getItem('User_Name');
+
+        if (this.isUserAuthenticated) {
+          this.pages = this.pages.concat(authPages);
+        }
+      });
   }
 }

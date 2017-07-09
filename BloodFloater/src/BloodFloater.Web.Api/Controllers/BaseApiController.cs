@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using BloodFloater.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
@@ -12,8 +13,9 @@ using MongoDB.Bson;
 
 namespace BloodFloater.Web.Api.Controllers
 {
-    [Route("api/[controller]/[action]")]
-    [DisableCors]
+    [Route("api/[controller]")]
+    [Authorize("Bearer")]
+    [EnableCors("CorsPolicy")]
     public class BaseApiController<TSEntity, TDEntity> : Controller where TSEntity : class where TDEntity : class
     {
         private readonly IBaseService<TSEntity> _baseService;

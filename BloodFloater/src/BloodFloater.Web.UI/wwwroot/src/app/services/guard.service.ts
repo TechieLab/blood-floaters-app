@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { CanActivate } from '@angular/router';
+import { Router, CanActivate } from '@angular/router';
 import { LoginPage } from './../../pages/account/login.page';
+import {StorageService} from './storage.service';
 
 export interface IAuthGuard  {
     canActivate();
@@ -12,13 +13,17 @@ export class AuthGuard implements IAuthGuard {
 
     constructor() { }
 
-    canActivate() {
-        if (localStorage.getItem('Auth_Token')) {
-            // logged in so return true
+    public canActivate() {
+        if (this.checkLogin()) {
             return true;
-        } else {
-            return false
+        } else {           
+            return false;
         }
-    }  
+    }
+
+     public checkLogin(): boolean {
+        let token = StorageService.getToken();
+        return token != null;
+    }
 }
 

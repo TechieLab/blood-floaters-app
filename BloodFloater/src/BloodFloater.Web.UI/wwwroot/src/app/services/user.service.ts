@@ -1,12 +1,11 @@
 import { Injectable, Optional } from '@angular/core';
-import { User } from '../../app/models/user';
-
+import { User,Profile } from '../../app/models';
 import { IBaseService, BaseService } from '../../app/services/base.service'
 
 import { Http, URLSearchParams } from '@angular/http';
 
 export interface IUserService extends IBaseService<User> {
-    getByUserName(userName : string);
+    getByUserName(userName : string);    
  }
 
 @Injectable()

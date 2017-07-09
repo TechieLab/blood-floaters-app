@@ -15,7 +15,7 @@ using DomainModels = BloodFloater.Models;
 namespace BloodFloater.Web.Api.Controllers
 {
     [Route("api/account")]
-    [DisableCors]
+    [EnableCors("CorsPolicy")]
     public class AccountApiController
     {
         private readonly IUserService _userService;
@@ -24,46 +24,43 @@ namespace BloodFloater.Web.Api.Controllers
             _userService = userService;
         }
 
-        [HttpPost("authenticate")]
-        public async Task<Result> Login([FromBody] Login model)
-        {
-            var result = new Result();
+        //[HttpPost("authenticate")]
+        //public async Task<Result> Login([FromBody] Login model)
+        //{
+        //    var result = new Result();
 
-            try
-            {
-                var user = _userService.ValidateUser(model.Username, model.Password);
+        //    try
+        //    {
+        //        var user = _userService.ValidateUser(model.Username, model.Password);
 
-                if (user != null)
-                {
-                    List<Claim> claims = new List<Claim>();
+        //        if (user != null)
+        //        {
+        //            List<Claim> claims = new List<Claim>();
 
-                    Claim claim = new Claim(ClaimTypes.Role, "User", ClaimValueTypes.String, model.Username);
-                    claims.Add(claim);
-                    
-                    //await HttpContext.Authentication.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                    //    new ClaimsPrincipal(new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme)),
-                    //    new Microsoft.AspNetCore.Http.Authentication.AuthenticationProperties { IsPersistent = model.RememberMe });
+        //            Claim claim = new Claim(ClaimTypes.Role, "User", ClaimValueTypes.String, model.Username);
+        //            claims.Add(claim);
 
-                    result.Success = true;
-                    result.Message = "Authentication succeeded";
-                }
-                else
-                {
-                    result.Success = true;
-                    result.Message = "Authentication Failed";
-                }
-            }
-            catch (Exception ex)
-            {
-                result.Success = false;
-                result.Message = ex.Message;
+        //            result.Success = true;
+        //            result.Message = "Authentication succeeded";
+        //            result.Content = user;
+        //        }
+        //        else
+        //        {
+        //            result.Success = true;
+        //            result.Message = "Invalid Username or password!";
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        result.Success = false;
+        //        result.Message = ex.Message;
 
-                //_loggingRepository.Add(new Error() { Message = ex.Message, StackTrace = ex.StackTrace, DateCreated = DateTime.Now });
-                //_loggingRepository.Commit();
-            }
+        //        //_loggingRepository.Add(new Error() { Message = ex.Message, StackTrace = ex.StackTrace, DateCreated = DateTime.Now });
+        //        //_loggingRepository.Commit();
+        //    }
 
-            return result;
-        }
+        //    return result;
+        //}
 
         [HttpPost("logout")]
         public async void Logout()
@@ -99,7 +96,7 @@ namespace BloodFloater.Web.Api.Controllers
                     RememberMe = user.RememberMe
                 };
 
-                _userService.Create(Mapper.Map<ViewModels.User, DomainModels.User>(tempUser));
+                _userService.Create(Mapper.Map<User, DomainModels.User>(tempUser));
 
                 result.Success = true;
                 result.Message = "Registration succeeded";

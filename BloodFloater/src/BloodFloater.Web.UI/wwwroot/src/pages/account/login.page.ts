@@ -23,11 +23,11 @@ import { User } from '../../app/models/user';
 export class LoginPage implements OnInit {
     public isLogged: boolean = false;
     public signInForm = this.builder.group({
-        UserName: ['', Validators.compose([Validators.minLength(6)
+        UserName: ['', Validators.compose([Validators.minLength(3)
             , Validators.required
             , Validators.pattern('[a-zA-Z]*')])
         ],
-        Password: ['', Validators.compose([Validators.minLength(6)
+        Password: ['', Validators.compose([Validators.minLength(3)
             , Validators.required
         ])
         ]

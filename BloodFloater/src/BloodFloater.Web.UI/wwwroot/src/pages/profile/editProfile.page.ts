@@ -1,21 +1,23 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { NgForm, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NavController, NavParams } from 'ionic-angular';
-import { Profile } from '../../app/models/profile';
+import { Profile, User } from '../../app/models';
 import { ProfilePage } from './profile.page';
-import { ProfileService, IProfileService } from './profile.service';
+import { UserService, IUserService } from '../../app/services/user.service';
+import {StorageService} from '../../app/services/storage.service';
 
 @Component({
   selector: 'edit-profile-page',
   templateUrl: 'editProfile.html',
-  providers: [ProfileService]
+  providers: [UserService]
 })
 
 export class EditProfilePage implements OnInit {
   selectedItem: any;
   editMode: boolean = false;
   profile: Profile;
-  profileService: IProfileService;
+  user:User;
+  userService: IUserService;
 
   public editProfileForm = this.builder.group({
     FullName: ["", Validators.required],
@@ -25,10 +27,10 @@ export class EditProfilePage implements OnInit {
   });
 
   constructor(public builder: FormBuilder, public navCtrl: NavController, public navParams: NavParams,
-    @Inject(ProfileService) profileService: IProfileService) {
+    @Inject(UserService) userService: IUserService) {
     // If we navigated to this page, we will have an item available as a nav param
     this.selectedItem = navParams.get('item');
-    this.profileService = profileService;
+    this.userService = userService;
 
     this.profile = new Profile();
   }
@@ -42,9 +44,9 @@ export class EditProfilePage implements OnInit {
   }
 
   getProfileProfile() {
-    this.profileService.getById(null).subscribe((result) => {
+    this.userService.getById(StorageService.getUserId()).subscribe((result) => {
       if (result) {
-        this.profile = result;
+        this.profile = result.Profile;
       }
     });
   }
@@ -56,10 +58,12 @@ export class EditProfilePage implements OnInit {
       this.profile.FullName = data.FullName;
       this.profile.Contact.EmailId = data.EmailId;
       this.profile.Contact.PhoneNumber = data.PhoneNumber;
+
+      this.user.Profile = this.profile;
     }
 
 
-    this.profileService.put(this.profile).subscribe((result) => {
+    this.userService.put(this.user).subscribe((result) => {
       if (result) {      
         this.navCtrl.push(ProfilePage);
       }
