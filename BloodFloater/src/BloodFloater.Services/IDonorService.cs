@@ -6,7 +6,7 @@ using BloodFloater.Models;
 
 namespace BloodFloater.Services
 {
-    public interface IDonorService: IBaseService<Donor>
+    public interface IDonorService: IBaseService<Donor, ViewModels.Donor>
     {
     }
 }

@@ -31,36 +31,32 @@ namespace BloodFloater.Web.Api.Helpers
         {
             ThrowIfInvalidOptions(_jwtOptions);
 
-            var existUser = Mapper.Map<DomainModels.User, User>(_userService.ValidateUser(model.UserName, model.Password));
+            var existUser = _userService.ValidateUser(model.UserName, model.Password);
 
-            if (existUser != null)
-            {
-                var requestAt = DateTime.Now;
-                var expiresIn = requestAt + _jwtOptions.ValidFor;
-                var token = GenerateToken(existUser, expiresIn);
-               
-                var result = new Result
+            if (existUser == null)
+                return new Result
                 {
-                    Success = true,
-                    Message = "Authenticated succesfully",
-                    Content = new
-                    {
-                        access_token = token,
-                        userId = existUser.Id.ToString(),
-                        emailId = existUser.EmailId,
-                        userName = existUser.UserName,
-                        expires = expiresIn,
-                    }
+                    Success = false,
+                    Message = "Invalid username or passward"
                 };
 
-                return result;
-            }
-
-            return new Result
+            var requestAt = DateTime.Now;
+            var expiresIn = requestAt + _jwtOptions.ValidFor;
+            var token = GenerateToken(existUser, expiresIn);
+               
+            var result = new Result
             {
-                Success = false,
-                Message = "Invalid username or passward"
+                Success = true,
+                Message = "Authenticated succesfully",
+                Content = new
+                {
+                    access_token = token,
+                    context = existUser,
+                    expires = expiresIn,
+                }
             };
+
+            return result;
         }
 
         private string GenerateToken(User user, DateTime expires)

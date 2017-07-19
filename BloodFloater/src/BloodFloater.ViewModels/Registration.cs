@@ -18,6 +18,8 @@ namespace BloodFloater.ViewModels
         [EmailAddress]
         public string EmailId { get; set; }
 
+        public string PhoneNumber { get; set; }
+
         public bool RememberMe { get; set; }
     }
 }

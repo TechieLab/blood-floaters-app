@@ -5,19 +5,30 @@ using System.Threading.Tasks;
 
 namespace BloodFloater.Models
 {
-    public class Profile
+    public class Profile : BaseEntity
     {
-        public Address CurrentAddress { get; set; }
+        public string FullName { get; set; }
 
-        public Address PermanentAddress { get; set; }
+        public string Gender { get; set; }
 
-        public Contact Contact { get; set; }
+        public int Age { get; set; }
 
-        public Profile()
-        {
-            CurrentAddress = new Address();
-            PermanentAddress = new Address();
-            Contact = new Contact();
-        }
+        public DateTime DoB { get; set; }
+
+        public int AddressId { get; set; }
+
+        public int ContactId { get; set; }
+
+        public int MediaId { get; set; }
+
+        public int UserId { get; set; }
+
+        public virtual List<Address> Addresses { get; set; }
+
+        public virtual List<Contact> Contacts { get; set; }
+
+        public virtual List<Media> Photos { get; set; }
+
+        public virtual User User { get; set; }
     }
 }

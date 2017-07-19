@@ -1,7 +1,8 @@
-﻿{
+{
   "version": "1.0.0",
 
   "dependencies": {
+    "AutoMapper": "6.1.1",
     "BloodFloater.Core": "1.0.0",
     "BloodFloater.DAL": "1.0.0",
     "BloodFloater.Models": "1.0.0",

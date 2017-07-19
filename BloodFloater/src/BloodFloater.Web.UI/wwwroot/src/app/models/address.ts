@@ -9,5 +9,6 @@ export class Address
     IsOfficeAddress: boolean;
     IsPermanetAddress: boolean;
     StateId: string;
-    CounntryId: number;
+    CountryId: string;
+    Zipcode: number;
 }

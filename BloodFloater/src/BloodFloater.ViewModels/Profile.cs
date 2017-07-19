@@ -7,18 +7,25 @@ namespace BloodFloater.ViewModels
 {
     public class Profile
     {
-        public string FullName { get; set; }
-        public Address CurrentAddress { get; set; }
+        public int Id { get; set; }
 
-        public Address PermanentAddress { get; set; }
+        public string FullName { get; set; }
+
+        public int Age { get; set; }
+
+        public string Gender { get; set; }
+
+        public Address Address { get; set; }
 
         public Contact Contact { get; set; }
 
+        public Media Media { get; set; }
+
         public Profile()
         {
-            CurrentAddress = new Address();
-            PermanentAddress = new Address();
+            Address = new Address();
             Contact = new Contact();
+            Media = new Media();
         }
     }
 }

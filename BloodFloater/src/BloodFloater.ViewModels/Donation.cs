@@ -9,7 +9,7 @@ namespace BloodFloater.ViewModels
     {
         public DateTime DontatedOn { get; set; }
 
-        public Location DonatedAt {get; set;}
+        public Address DonatedAt {get; set;}
 
         public Receiver Receipiant { get; set; }
     }

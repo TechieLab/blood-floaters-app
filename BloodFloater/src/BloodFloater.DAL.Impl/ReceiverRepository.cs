@@ -7,11 +7,11 @@ using BloodFloater.Models;
 
 namespace BloodFloater.DAL.Impl
 {
-    public class ReceiverRepository  : BaseRepository<Receiver>, IReceiverRepository
+    public class ReceiverRepository  : BaseEntityRepository<Receiver>, IReceiverRepository
     {
-        public ReceiverRepository(IMongoDbManager mongoDbManager) : base(mongoDbManager)
+        public ReceiverRepository(BloodFloaterContext context) : base(context)
         {
-            SetCollection(mongoDbManager.GetCollection<Receiver>("profiles"));
+
         }
     }
 }

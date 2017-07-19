@@ -4,14 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using BloodFloater.Core;
 using BloodFloater.Models;
+using BloodFloater.DAL;
 
 namespace BloodFloater.DAL.Impl
 {
-    public class DonorRepository  : BaseRepository<Donor>, IDonorRepository
+    public class DonorRepository  : BaseEntityRepository<Donor>, IDonorRepository
     {
-        public DonorRepository(IMongoDbManager mongoDbManager) : base(mongoDbManager)
+        public DonorRepository(BloodFloaterContext context) : base(context)
         {
-            SetCollection(mongoDbManager.GetCollection<Donor>("donors"));
+           
         }
     }
 }

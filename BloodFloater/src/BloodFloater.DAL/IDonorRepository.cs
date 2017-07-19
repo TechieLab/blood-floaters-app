@@ -6,7 +6,7 @@ using BloodFloater.Models;
 
 namespace BloodFloater.DAL
 {
-    public interface IDonorRepository : IBaseRepository<Donor>
+    public interface IDonorRepository : IBaseEntityRepository<Donor>
     {
        
     }

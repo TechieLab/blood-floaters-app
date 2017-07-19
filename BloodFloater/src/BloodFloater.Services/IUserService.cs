@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace BloodFloater.Services
 {
-   public interface IUserService : IBaseService<User>
+   public interface IUserService : IBaseService<User, ViewModels.User>
    {
-       User ValidateUser(string userName, string pwd);
-       User GetUserByName(string userName);
+       ViewModels.User ValidateUser(string userName, string pwd);
    }
 }

@@ -7,9 +7,9 @@ using BloodFloater.Models;
 
 namespace BloodFloater.Services.Impl
 {
-    public class DonorService : BaseService<Donor>, IDonorService
+    public class DonorService : BaseService<Donor, ViewModels.Donor>, IDonorService
     {
-        public DonorService(IBaseRepository<Donor> repository) : base(repository)
+        public DonorService(IDonorRepository repository) : base(repository)
         {
         }
     }

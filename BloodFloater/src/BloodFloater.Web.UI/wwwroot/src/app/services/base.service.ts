@@ -10,11 +10,11 @@ import { StorageService } from './storage.service';
 
 export interface IBaseService<TEntity> {
     get(): Observable<Array<TEntity>>;  
-    getById(id: string): Observable<TEntity>;
+    getById(id: number): Observable<TEntity>;
     getByQuery(params: URLSearchParams): Observable<Array<TEntity>>;    
     post(entity: TEntity): Observable<Result>;
     put(entity: TEntity): Observable<Result>;
-    del(id: string): Observable<Result>;
+    del(id: number): Observable<Result>;
     action(actionName: string);
 }
 
@@ -45,14 +45,14 @@ export class BaseService<TEntity> implements IBaseService<TEntity> {
         return this.http.get(this.url, this.options).map(this.extractData).catch(this.handleError);
     }  
 
-    getById(id: string): Observable<TEntity> {
+    getById(id: number): Observable<TEntity> {
         var url = this.url + '/' + id;
         this.setAuthHeader();
         return this.http.get(url, this.options).map(this.extractData).catch(this.handleError);
     }
 
     getByQuery(params: URLSearchParams): Observable<Array<TEntity>> {
-        var url = this.url + '/';
+        var url = this.url;
         this.setAuthHeader();
         this.options.search = params;
         return this.http.get(url, this.options).map(this.extractData).catch(this.handleError);
@@ -74,7 +74,7 @@ export class BaseService<TEntity> implements IBaseService<TEntity> {
             .catch(this.handleError);
     }
 
-    del(id: string): Observable<Result> {
+    del(id: number): Observable<Result> {
         this.url = this.url + '/' + id;
         this.setAuthHeader();
         return this.http.delete(this.url, this.options).map(this.extractData).catch(this.handleError);

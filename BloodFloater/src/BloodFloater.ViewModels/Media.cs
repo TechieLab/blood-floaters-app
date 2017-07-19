@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace BloodFloater.ViewModels
 {
-    public class DonorHistory
+    public class Media
     {
-        public Donation Donation { get; set; }
-        public DateTime LastDonatedOn { get; set; }
+
     }
 }

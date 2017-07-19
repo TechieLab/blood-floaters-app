@@ -8,19 +8,21 @@ namespace BloodFloater.Models
     public class User : BaseEntity
     {
         public string UserName { get; set; }
-        public string Password { get; set; }
+
+        public string HashedPassword { get; set; }
+
         public string EmailId { get; set; }
+
+        public string PhoneNumber { get; set; }
+
         public bool RememberMe { get; set; }
 
         public int PageSize { get; set; }
 
         public int Timeout { get; set; }
 
-        public Profile Profile { get; set; }
+        public string Salt { get; set; }
 
-        public User()
-        {
-            this.Profile = new Profile();
-        }
+        public bool IsLocked { get; set; }
     }
 }

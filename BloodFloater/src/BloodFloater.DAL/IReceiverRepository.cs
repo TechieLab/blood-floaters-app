@@ -6,7 +6,7 @@ using BloodFloater.Models;
 
 namespace BloodFloater.DAL
 {
-    public interface IReceiverRepository : IBaseRepository<Receiver>
+    public interface IReceiverRepository : IBaseEntityRepository<Receiver>
     {
        
     }

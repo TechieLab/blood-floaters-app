@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Cors;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BloodFloater.Web.Api.Controllers
 {
     [Route("api/values")]
-    [EnableCors("CorsPolicy")]
-    public class ValuesController : Controller
+    public class ValuesController
     {
         // GET api/values
         [HttpGet]

@@ -35,5 +35,10 @@ namespace BloodFloater.Core
         {
             _database = _client.GetDatabase(dbName);
         }
+
+        public void Disconnect()
+        {
+            
+        }
     }
 }

@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace BloodFloater.Models
 {
-    public class DonorHistory
+    public class UserRole : BaseEntity
     {
-        public Donation Donation { get; set; }
-        public DateTime LastDonatedOn { get; set; }
+        public int UserId { get; set; }
+        public int RoleId { get; set; }
     }
 }

@@ -15,7 +15,8 @@ namespace BloodFloater.Infrastructure
             services.AddScoped<IDonorRepository, DonorRepository>();
             services.AddScoped<IReceiverRepository, ReceiverRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
-
+            services.AddScoped<ILookupRepository, LookupRepository>();
+            services.AddScoped<IProfileRepository, ProfileRepository>();
         }
     }
 }

@@ -42,7 +42,7 @@ namespace BloodFloater.Web.Api.Controllers
 
         [HttpPost("authenticate")]
         [AllowAnonymous]
-        public async Task<IActionResult> Login([FromBody] Login model)
+        public IActionResult Login([FromBody] Login model)
         {
             var jwtHelper = new JwtAuthHelper(_userService, _jwtOptions);
             var result = jwtHelper.GetAuthTokenResult(model);
@@ -55,7 +55,7 @@ namespace BloodFloater.Web.Api.Controllers
             }
             else
             {
-                return new BadRequestObjectResult(JsonConvert.SerializeObject(result, _serializerSettings));
+                return new OkObjectResult(JsonConvert.SerializeObject(result, _serializerSettings));
             }
         }
     }

@@ -4,6 +4,8 @@ const User_Name: string = 'User_Name';
 const Client_Id ='Client_Id';
 const Email_Id = 'Email_Id';
 
+import {UserContext} from '../models';
+
 export class StorageService {
 
     static getItem(key: string): any {
@@ -26,13 +28,13 @@ export class StorageService {
         return !!this.getItem(App_Context);
     }
 
-    static getContext(): any {
+    static getContext(): UserContext {
         if (this.hasContext()) {
-            return this.getItem(App_Context);
+            return <UserContext>JSON.parse(this.getItem(App_Context));
         }
     }
     static setContext(context: any) {
-        localStorage.setItem(App_Context, context);
+        localStorage.setItem(App_Context, JSON.stringify(context));
     }
 
     static removeContext(): void {
@@ -48,11 +50,8 @@ export class StorageService {
             return this.getItem(Auth_Token);
         }
     }
-    static setToken(response: any): void {
-        localStorage.setItem(User_Name, response.userName);
-        localStorage.setItem(Auth_Token, response.access_token);
-        localStorage.setItem(Client_Id, response.userId);
-        localStorage.setItem(Email_Id, response.emailId);
+    static setToken(token: any): void {      
+        localStorage.setItem(Auth_Token, token);
     }
    
     static removeToken(): void {

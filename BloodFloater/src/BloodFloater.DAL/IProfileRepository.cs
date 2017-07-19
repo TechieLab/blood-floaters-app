@@ -6,7 +6,7 @@ using BloodFloater.Models;
 
 namespace BloodFloater.DAL
 {
-    public interface IProfileRepository : IBaseRepository<Profile>
+    public interface IProfileRepository : IBaseEntityRepository<Profile>
     {
        
     }

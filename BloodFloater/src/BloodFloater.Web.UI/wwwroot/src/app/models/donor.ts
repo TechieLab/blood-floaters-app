@@ -1,13 +1,19 @@
-import {Address, Contact} from '../../app/models';
+import {Profile,Donation} from '../../app/models';
 
 export class Donor{
-    public FullName : string;
-    public BloodGroup : string;
-    public Address : Address;
-    public Contact : Contact;
+    public profileId : number;
+    public donationId : number;
+
+    public Profile : Profile;
+    public Donation : Donation;
+
+    public PastDonations : Array<Donation>;
 
     constructor(){
-        this.Address = new Address();
-        this.Contact = new Contact();
+        this.Profile = new Profile();
+        this.Donation = new Donation();
+
+        this.PastDonations = new Array<Donation>();
+
     }
 }

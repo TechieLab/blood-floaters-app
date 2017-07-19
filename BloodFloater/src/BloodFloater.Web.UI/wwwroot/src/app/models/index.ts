@@ -5,3 +5,6 @@ export * from './address';
 export * from './contact';
 export * from './donor';
 export * from './lookup';
+export * from './donation';
+export * from './baseEntity';
+export * from './userContext';

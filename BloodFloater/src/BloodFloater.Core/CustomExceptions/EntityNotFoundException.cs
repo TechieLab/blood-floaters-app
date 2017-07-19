@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace BloodFloater.Core.CustomExceptions
 {
-    public class EntityNotFoundException
+    public class EntityNotFoundException : Exception
     {
-        public EntityNotFoundException()
+        public EntityNotFoundException(string user) : base("user")
         {
         }
     }

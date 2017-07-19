@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 
 import {Events, NavController, NavParams, ToastController, LoadingController} from 'ionic-angular';
 import {Geolocation} from 'ionic-native';
-import {SearchPage} from '../index';
+import {SearchPage, RegisterDonorPage} from '../index';
 
 @Component({selector: 'home-page', templateUrl: 'home.html', entryComponents: []})
 
@@ -24,6 +24,6 @@ export class HomePage implements OnInit {
     }
 
     gotoRegisterDonorPage(){
-
+        this.navCtrl.push(RegisterDonorPage);
     }
 }

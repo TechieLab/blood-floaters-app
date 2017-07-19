@@ -32,6 +32,7 @@ export class RegisterPage {
             , Validators.required
         ])],
         FullName: [""],
+        PhoneNumber : [""],
         EmailId: [""],
         ConfirmPassword: [""]
     });

@@ -7,7 +7,12 @@ namespace BloodFloater.ViewModels
 {
     public class SearchCriteria
     {
+        public string FullName { get; set; }
+
+        public string ContactNumber { get; set; }
+
         public string BloodGroup { get; set; }
+
         public string Location { get; set; }
     }
 }

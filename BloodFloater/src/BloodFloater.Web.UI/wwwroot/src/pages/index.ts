@@ -1,2 +1,2 @@
 export * from './search/search.page';
-export * from './donor/add-edit-donor.page';
+export * from './donor/register-donor.page';

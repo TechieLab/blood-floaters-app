@@ -25,11 +25,11 @@ namespace BloodFloater.Infrastructure
 
             CreateMap<DomainModels.Donation, ViewModels.Donation>().ReverseMap();
 
-            CreateMap<DomainModels.DonorHistory, ViewModels.DonorHistory>().ReverseMap();
-
-            CreateMap<DomainModels.Location, ViewModels.Location>().ReverseMap();
+            CreateMap<DomainModels.Lookup, ViewModels.Lookup>().ReverseMap();
 
             CreateMap<DomainModels.LocationCords, ViewModels.LocationCords>().ReverseMap();
+
+            CreateMap<DomainModels.Media, ViewModels.Media>().ReverseMap();
 
             //    .ForMember(vm => vm.TotalPhotos, map => map.MapFrom(a => a.Photos.Count))
             //    .ForMember(vm => vm.Thumbnail, map =>

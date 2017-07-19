@@ -7,9 +7,9 @@ using BloodFloater.Models;
 
 namespace BloodFloater.Services.Impl
 {
-    public class ReceiverService : BaseService<Receiver>, IReceiverService
+    public class ReceiverService : BaseService<Receiver, ViewModels.Receiver>, IReceiverService
     {
-        public ReceiverService(IBaseRepository<Receiver> repository) : base(repository)
+        public ReceiverService(IReceiverRepository repository) : base(repository)
         {
         }
     }

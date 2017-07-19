@@ -54,7 +54,8 @@ export class LoginPage implements OnInit {
     onSubmitForm() {
         this.accountService.login(this.signInForm.value).subscribe((result) => {
             if (result.Success) {
-                StorageService.setToken(result.Content);
+                StorageService.setContext(result.Content.context);
+                 StorageService.setToken(result.Content.access_token);
                 this.navCtrl.setRoot(HomePage);
                 this.events.publish('user:login');
             } else {

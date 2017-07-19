@@ -8,19 +8,14 @@ namespace BloodFloater.ViewModels
 {
     public class Donor
     {
-        public ObjectId Id { get; set; }
-        public string DonorId { get; set; }
+        public int Id { get; set; }
 
-        public string ProfileId { get; set; }
+        public int ProfileId { get; set; }
+
+        public int DonationId { get; set; }
 
         public Donation Donation { get; set; }
 
-        public List<DonorHistory> DonorHistories { get; set; }
-
-        public Donor()
-        {
-            this.Donation = new Donation();
-            this.DonorHistories = new List<DonorHistory>();
-        }
+        public List<Donation> PastDonations { get; set; }
     }
 }

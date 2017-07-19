@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using System.Security.Claims;
 using System.Text;
 using BloodFloater.Core;
+using BloodFloater.DAL;
 using BloodFloater.Infrastructure;
 using BloodFloater.Web.Api.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -14,6 +15,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc.Cors.Internal;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
 using Microsoft.IdentityModel.Tokens;
@@ -61,6 +63,21 @@ namespace BloodFloater.Web.Api
 
             services.AddAuthentication();
 
+            string sqlConnectionString = Configuration["ConnectionStrings:DefaultConnection"];
+            bool useInMemoryProvider = bool.Parse(Configuration["Data:BloodFloaterConnection:InMemoryProvider"]);
+
+            services.AddDbContext<BloodFloaterContext>(options => {
+                switch (useInMemoryProvider)
+                {
+                    case true:
+                        options.UseInMemoryDatabase();
+                        break;
+                    default:
+                        options.UseSqlServer(sqlConnectionString);
+                        break;
+                }
+            });
+
             // Polices
             services.AddAuthorization(auth =>
                 {
@@ -75,7 +92,7 @@ namespace BloodFloater.Web.Api
                 options.AddPolicy("CorsPolicy",
                     builder => builder.AllowAnyOrigin()
                     .AllowAnyMethod()
-                    .AllowAnyHeader()
+                    .WithHeaders("authorization", "accept", "content-type", "origin")
                     .AllowCredentials());
             });
 
@@ -88,20 +105,6 @@ namespace BloodFloater.Web.Api
             //        .AllowCredentials());
             //});
 
-            // Add MVC services to the services container.
-            services.AddMvc(config =>
-            {
-                var policy = new AuthorizationPolicyBuilder()
-                                 .RequireAuthenticatedUser()
-                                 .Build();
-                config.Filters.Add(new AuthorizeFilter(policy));
-            });
-
-            services.Configure<MvcOptions>(options =>
-            {
-                options.Filters.Add(new CorsAuthorizationFilterFactory("CorsPolicy"));
-            });
-
             var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
 
             // Configure JwtIssuerOptions
@@ -112,6 +115,21 @@ namespace BloodFloater.Web.Api
                 options.SigningCredentials = new SigningCredentials(_signingKey, SecurityAlgorithms.HmacSha256);
             });
 
+            // Add MVC services to the services container.
+
+
+            services.Configure<MvcOptions>(options =>
+            {
+                options.Filters.Add(new CorsAuthorizationFilterFactory("CorsPolicy"));
+            });
+
+            services.AddMvc(config =>
+            {
+                config.Filters.Add(new CorsAuthorizationFilterFactory("CorsPolicy"));
+            }).AddJsonOptions(options =>
+            {
+                options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+            }); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -130,7 +148,6 @@ namespace BloodFloater.Web.Api
             app.UseStaticFiles();
 
             AutoMapperConfiguration.Configure();
-            //app.UseCors("CorsPolicy");
 
             //app.UseCors("AllowSpecificOrigin");
 
@@ -150,7 +167,7 @@ namespace BloodFloater.Web.Api
                 ValidateLifetime = true,
 
                 ClockSkew = TimeSpan.FromMinutes(0)
-        };
+            };
 
             app.UseJwtBearerAuthentication(new JwtBearerOptions
             {
@@ -159,18 +176,12 @@ namespace BloodFloater.Web.Api
                 TokenValidationParameters = tokenValidationParameters
             });
 
+            app.UseDeveloperExceptionPage();
+
             // Custom authentication middleware
             //app.UseMiddleware<AuthMiddleware>();
-
-            app.UseMvcWithDefaultRoute();
-            // Add MVC to the request pipeline.
-            app.UseMvc();
-
-           
-
             if (env.IsDevelopment())
             {
-                //app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();
 
                 _mongoDbManager.Connect("mongodb://localhost:27017");
@@ -180,6 +191,14 @@ namespace BloodFloater.Web.Api
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            app.UseCors("CorsPolicy");
+
+            app.UseMvcWithDefaultRoute();
+            // Add MVC to the request pipeline.
+            app.UseMvc();
+
+            DbInitializer.Initialize(app.ApplicationServices, _applicationPath);
         }
     }
 }

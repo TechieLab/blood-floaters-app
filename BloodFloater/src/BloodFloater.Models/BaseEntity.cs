@@ -7,11 +7,17 @@ using System.Threading.Tasks;
 
 namespace BloodFloater.Models
 {
-    public class BaseEntity
+    public class BaseEntity : IBaseEntity
     {
-        [BsonId]
-        [BsonElement("_id")]
-        public ObjectId Id{ get; set; }
-               
+        public int Id { get; set; }
+
+        public DateTime CreatedOn { get; set; }
+
+        public int CreatedBy { get; set; }
+
+        public DateTime ModifiedOn { get; set; }
+
+        public int ModifiedBy { get; set; }
+
     }
 }

@@ -7,6 +7,13 @@ namespace BloodFloater.Models
 {
     public class Receiver : BaseEntity
     {
+        public int ReceiverId { get; set; }
 
+        public string ProfileId { get; set; }
+
+        public Receiver()
+        {
+            
+        }
     }
 }

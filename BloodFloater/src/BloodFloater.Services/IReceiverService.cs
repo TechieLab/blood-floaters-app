@@ -6,7 +6,7 @@ using BloodFloater.Models;
 
 namespace BloodFloater.Services
 {
-    public interface IReceiverService: IBaseService<Receiver>
+    public interface IReceiverService: IBaseService<Receiver, ViewModels.Receiver>
     {
     }
 }

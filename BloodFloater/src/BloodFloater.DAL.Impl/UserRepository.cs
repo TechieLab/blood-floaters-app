@@ -9,19 +9,11 @@ using MongoDB.Driver;
 
 namespace BloodFloater.DAL.Impl
 {
-    public class UserRepository  : BaseRepository<User>, IUserRepository
+    public class UserRepository  : BaseEntityRepository<User>, IUserRepository
     {
-        public UserRepository(IMongoDbManager mongoDbManager) : base(mongoDbManager)
+        public UserRepository(BloodFloaterContext context) : base(context)
         {
-            SetCollection(mongoDbManager.GetCollection<User>("users"));
-        }
 
-        public User GetByName(string userName)
-        {
-            var builder = Builders<User>.Filter;
-            var filter = builder.Eq("UserName", userName);
-
-            return Get(filter, null, null).FirstOrDefault();
         }
     }
 }

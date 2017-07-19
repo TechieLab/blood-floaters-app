@@ -16,5 +16,7 @@ namespace BloodFloater.Core
         void SetDatabase(string dbName);
 
         void Connect(string dbUrl);
+
+        void Disconnect();
     }
 }

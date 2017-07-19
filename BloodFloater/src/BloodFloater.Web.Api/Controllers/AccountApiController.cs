@@ -88,15 +88,16 @@ namespace BloodFloater.Web.Api.Controllers
             try
             {
 
-                var tempUser = new User
+                var tempUser = new DomainModels.User
                 {
                     UserName = user.UserName,
-                    Password = user.Password,
+                    HashedPassword = user.Password,
                     EmailId = user.EmailId,
+                    PhoneNumber = user.PhoneNumber,
                     RememberMe = user.RememberMe
                 };
 
-                _userService.Create(Mapper.Map<User, DomainModels.User>(tempUser));
+                _userService.Create(tempUser);
 
                 result.Success = true;
                 result.Message = "Registration succeeded";
@@ -105,6 +106,7 @@ namespace BloodFloater.Web.Api.Controllers
             {
                 result.Success = false;
                 result.Message = "Registration failed" + ex.Message;
+                result.Content = ex.StackTrace;
             }
 
             return result;

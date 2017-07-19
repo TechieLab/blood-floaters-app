@@ -4,13 +4,14 @@ import { FormsModule } from '@angular/forms';
 import {ChangePasswordPage} from '../account/change-password.page';
 import {ProfilePage} from './profile.page';
 import {EditProfilePage} from './editProfile.page';
+import {ProfileService} from './profile.service';
 
 @NgModule({
     declarations:[ProfilePage,EditProfilePage],    
     exports:[ProfilePage, EditProfilePage],
     entryComponents:[ProfilePage, EditProfilePage,ChangePasswordPage],
     imports:[IonicModule, FormsModule],
-    providers:[]
+    providers:[ProfileService]
 })
 
 export class ProfileModule{}

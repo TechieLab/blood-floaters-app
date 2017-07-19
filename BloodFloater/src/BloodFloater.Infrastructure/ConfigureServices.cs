@@ -17,6 +17,8 @@ namespace BloodFloater.Infrastructure
             services.AddScoped<IDonorService, DonorService>();
             services.AddScoped<IReceiverService, ReceiverService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ILookupService, LookupService>();
+            services.AddScoped<IProfileService, ProfileService>();
         }
     }
 }

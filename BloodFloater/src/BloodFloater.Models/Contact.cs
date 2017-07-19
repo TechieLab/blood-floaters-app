@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BloodFloater.Models
 {
-    public class Contact
+    public class Contact : BaseEntity
     {
         public string PhoneNumber { get; set; }
         public string LandLineNumber { get; set; }
