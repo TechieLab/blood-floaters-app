@@ -1,11 +1,9 @@
-﻿using MongoDB.Bson;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using BloodFloater.ViewModels;
-using MongoDB.Driver;
 
 namespace BloodFloater.Services
 {
@@ -32,6 +30,10 @@ namespace BloodFloater.Services
         IEnumerable<TDEntity> Get(Expression<Func<TSEntity, bool>> predicate);
 
         Task<IEnumerable<TDEntity>> GetAsync(Expression<Func<TSEntity, bool>> predicate);
+
+        TDEntity GetSingle(Expression<Func<TSEntity, bool>> predicate);
+
+        Task<TDEntity> GetSingleAsync(Expression<Func<TSEntity, bool>> predicate);
 
         TDEntity Get(Expression<Func<TSEntity, bool>> predicate, params Expression<Func<TSEntity, object>>[] includeProperties);
 

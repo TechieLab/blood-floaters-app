@@ -12,8 +12,8 @@ import { UserService, IUserService } from '../../app/services/user.service';
 
 @NgModule({
     declarations:[LoginPage,RegisterPage,ConfirmationPage,ChangePasswordPage],    
-    exports:[LoginPage,ChangePasswordPage],
-    entryComponents:[RegisterPage,ConfirmationPage,ChangePasswordPage],
+    exports:[LoginPage,RegisterPage, ConfirmationPage, ChangePasswordPage],
+    entryComponents:[LoginPage, RegisterPage,ConfirmationPage],
     imports:[IonicModule, FormsModule],
     providers:[UserService,AccountService]
 })

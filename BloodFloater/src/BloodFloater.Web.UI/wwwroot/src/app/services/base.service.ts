@@ -1,5 +1,5 @@
-import '../rxjs-operators';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 import { Injectable, Optional } from '@angular/core';
 import { Http, Headers, Response, RequestOptions, URLSearchParams } from '@angular/http';

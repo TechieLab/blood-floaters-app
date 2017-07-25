@@ -5,14 +5,15 @@ using System.Threading.Tasks;
 
 namespace BloodFloater.Models
 {
-    public class Address : BaseEntity
+    public class Address
     {
+        public int Id { get; set; }
+
         public string AddressLine1 { get; set; }
 
         public string AddressLine2 { get; set; }
 
         public string Street { get; set; }
-
 
         public string City { get; set; }
 
@@ -25,16 +26,15 @@ namespace BloodFloater.Models
         public string IsHomeAddress { get; set; }
 
         public int StateId { get; set; }
-        public int CounntryId { get; set; }
+
+        public int CountryId { get; set; }
+
+        public int ProfileId { get; set; }
 
         public string LongCord { get; set; }
 
         public string LatCord { get; set; }
 
-        public virtual Lookup Country { get; set; }
-
-        public virtual Lookup State { get; set; }
-
-      
+        public virtual Profile Profile { get; set; }
     }
 }

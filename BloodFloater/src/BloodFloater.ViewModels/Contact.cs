@@ -7,10 +7,13 @@ namespace BloodFloater.ViewModels
 {
     public class Contact
     {
+        public int Id { get; set; }
         public string PhoneNumber { get; set; }
         public string LandLineNumber { get; set; }
         public string AltPhoneNumber { get; set; }
         public string EmailId { get; set; }
         public string AltEmailId { get; set; }
+
+        public int ProfileId { get; set; }
     }
 }

@@ -12,7 +12,7 @@ import { AccountService, IAccountService } from '../account/account.service';
   providers: [AccountService]  
 })
 
-export class Welcome implements OnInit { 
+export class WelcomePage implements OnInit { 
 
   constructor(
     public navCtrl: NavController, 

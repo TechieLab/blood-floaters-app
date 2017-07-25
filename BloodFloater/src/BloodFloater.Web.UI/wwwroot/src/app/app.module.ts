@@ -9,12 +9,11 @@ import { Constants } from './common/constants';
 import { AppModules } from './common/moduleConstants';
 import { AppProviders } from './common/providerConstants';
 
-import { AppComponents, featuredComponents, customPipes } from './common/componentConstants';
+import { AppComponents, customPipes } from './common/componentConstants';
 
 @NgModule({
   declarations: [
-    MyApp,
-    AppComponents
+    MyApp, AppComponents
   ],
   imports: [
     FormsModule,
@@ -33,8 +32,7 @@ import { AppComponents, featuredComponents, customPipes } from './common/compone
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
-    featuredComponents
+    MyApp
   ],
   providers: [
     AppProviders,

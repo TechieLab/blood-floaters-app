@@ -1,0 +1,80 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Update Profile</ion-title>
+        <ion-buttons end>
+            <button buttons-end ion-button (click)="saveProfile()">
+                Save
+            </button>
+        </ion-buttons>       
+    </ion-navbar>
+</ion-header>
+<ion-content padding>
+<form [formGroup]="editProfileForm" #newform="ngForm">    
+        <ion-card> 
+            <ion-item>
+                <ion-label floating>Full Name</ion-label>
+                <ion-input type="text" formControlName="FullName" [(ngModel)]="profile.FullName" name="fullName" required></ion-input>
+            </ion-item>
+             <ion-item>
+                <ion-label floating>Gender</ion-label>            
+                <ion-select formControlName="Gender" name="gender" [(ngModel)]="profile.Gender" required>
+                    <ion-option value="Male">Male</ion-option>
+                    <ion-option value="Female">Female</ion-option>
+                </ion-select>
+            </ion-item>
+             <ion-item>
+                <ion-label floating>Age</ion-label>
+                <ion-input type="text" formControlName="Age" [(ngModel)]="profile.Age" name="age" required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Blood Group</ion-label>
+                <ion-select formControlName="BloodGroup" name="bloodGroup" [(ngModel)]="profile.BloodGroup" required>
+                    <ion-option value="{{group}}" *ngFor="let group of bloodGroups">{{group}}</ion-option>
+                </ion-select>
+            </ion-item>            
+        </ion-card>   
+        <ion-card>   
+            <ion-list>
+                <ion-item>
+                    <ion-label floating>Phone Number</ion-label>
+                    <ion-input type="text" formControlName="PhoneNumber" [(ngModel)]="profile.Contact.PhoneNumber" readonly="true" name="phoneNumber" required></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label floating>Email</ion-label>
+                    <ion-input type="email" formControlName="EmailId" name="emailId" [(ngModel)]="profile.Contact.EmailId" readonly="true" required></ion-input>
+                </ion-item>
+            </ion-list>
+        </ion-card>
+        <ion-card>   
+            <ion-list>
+                <ion-item>
+                    <ion-label floating>Address</ion-label>
+                    <ion-input type="text" formControlName="AddressLine1" [(ngModel)]="profile.Address.AddressLine1" name="addressLine1"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label floating>Country</ion-label>
+                    <ion-select formControlName="Country" name="country" [(ngModel)]="profile.Address.Country" (ngModelChange)="onCountryChange($event)">
+                        <ion-option value="{{country.Id}}" *ngFor="let country of countries">{{country.Name}}</ion-option>
+                    </ion-select>
+                </ion-item>               
+                <ion-item>
+                    <ion-label floating>State</ion-label>
+                    <ion-select formControlName="State" name="state" [(ngModel)]="profile.Address.State" >
+                        <ion-option value="{{state.Id}}" *ngFor="let state of states">{{state.Name}}</ion-option>
+                    </ion-select>
+                </ion-item>
+                <ion-item>
+                    <ion-label floating>City</ion-label>
+                    <ion-input type="text" formControlName="City" name="city" [(ngModel)]="profile.Address.City" required></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label floating>Zipcode</ion-label>
+                    <ion-input type="text" formControlName="Zipcode" [(ngModel)]="profile.Address.Zipcode" name="zipcode"></ion-input>
+                </ion-item>
+            </ion-list>
+        </ion-card>
+    </form>
+</ion-content>

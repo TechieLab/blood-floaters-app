@@ -8,6 +8,7 @@ using BloodFloater.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using BloodFloater.Services;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using MongoDB.Bson;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -15,19 +16,44 @@ using MongoDB.Bson;
 namespace BloodFloater.Web.Api.Controllers
 {
     [Route("api/users")]
-    public class UsersController
+    public class UsersController : Controller
     {
         private readonly IUserService _userService;
+        private readonly IProfileService _profileService;
 
-        public UsersController(IUserService userService)
+        public UsersController(IUserService userService, IProfileService profileService)
         {
             _userService = userService;
+            _profileService = profileService;
+        }
+
+        [HttpGet()]
+        public IActionResult Get()
+        {
+            string userName = HttpContext.Request.Query["userName"].ToString();
+
+            if (string.IsNullOrEmpty(userName))
+            {
+                return new BadRequestObjectResult("UserName cannot be null");
+            }
+
+            return StatusCode(200, _userService.GetSingle(u => u.UserName == userName));
         }
 
         [HttpGet("{id}")]
         public User Get(int id)
         {
-            return _userService.Get(id);
+            var user = _userService.Get(id);
+            if (user != null)
+            {
+                var profile = _profileService.GetSingle(p => p.UserId == user.Id);
+                if (profile != null)
+                {
+                    user.ProfileId = profile.Id;
+                }
+            }
+
+            return user;
         }
 
         [HttpPost("search")]
@@ -53,12 +79,6 @@ namespace BloodFloater.Web.Api.Controllers
         public void Delete(int id)
         {
             _userService.Delete(id);
-        }
-
-        [HttpGet("GetUserByName/{userName}")]
-        public User GetUserByName(string userName)
-        {
-            return _userService.Get(u => u.UserName == userName).FirstOrDefault();
         }
     }
 }

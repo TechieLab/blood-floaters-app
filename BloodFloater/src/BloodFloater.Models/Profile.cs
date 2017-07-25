@@ -15,17 +15,11 @@ namespace BloodFloater.Models
 
         public DateTime DoB { get; set; }
 
-        public int AddressId { get; set; }
-
-        public int ContactId { get; set; }
-
-        public int MediaId { get; set; }
-
         public int UserId { get; set; }
+        
+        public virtual Address Address { get; set; }
 
-        public virtual List<Address> Addresses { get; set; }
-
-        public virtual List<Contact> Contacts { get; set; }
+        public virtual Contact Contact { get; set; }
 
         public virtual List<Media> Photos { get; set; }
 

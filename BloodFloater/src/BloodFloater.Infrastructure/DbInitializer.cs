@@ -97,11 +97,11 @@ namespace BloodFloater.Infrastructure
 
                 // create user-admin for chsakell
                 _context.UserRoles.AddRange(new UserRole[] {
-                new UserRole() {
-                    RoleId = 1, // admin
-                    UserId = 1  // chsakell
-                }
-            });
+                    new UserRole() {
+                        RoleId = 1, // admin
+                        UserId = 1  // chsakell
+                    }
+                });
                 _context.SaveChanges();
             }
         }

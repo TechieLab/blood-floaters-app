@@ -20,8 +20,6 @@
     "Microsoft.Extensions.Logging.Console": "1.1.1",
     "Microsoft.Extensions.Logging.Debug": "1.1.1",
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
-    "MongoDB.Driver": "2.4.4",
-    "MongoDB.Bson": "2.4.4",
     "BloodFloater.Core": "1.0.0",
     "BloodFloater.DAL": "1.0.0",
     "BloodFloater.Models": "1.0.0",

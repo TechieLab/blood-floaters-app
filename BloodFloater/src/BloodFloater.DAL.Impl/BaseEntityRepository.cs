@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using BloodFloater.DAL;
 using BloodFloater.Models;
 
 namespace BloodFloater.DAL.Impl
@@ -26,17 +25,17 @@ namespace BloodFloater.DAL.Impl
         #endregion
         public virtual IEnumerable<T> Get()
         {
-            return _context.Set<T>().AsEnumerable();
+            return _dbSet.AsEnumerable();
         }
 
         public virtual async Task<IEnumerable<T>> GetAsync()
         {
-            return await _context.Set<T>().ToListAsync();
+            return await _dbSet.ToListAsync();
         }
 
         public virtual IEnumerable<T> AllIncluding(params Expression<Func<T, object>>[] includeProperties)
         {
-            IQueryable<T> query = _context.Set<T>();
+            IQueryable<T> query = _dbSet;
             foreach (var includeProperty in includeProperties)
             {
                 query = query.Include(includeProperty);
@@ -46,7 +45,7 @@ namespace BloodFloater.DAL.Impl
 
         public virtual async Task<IEnumerable<T>> AllIncludingAsync(params Expression<Func<T, object>>[] includeProperties)
         {
-            IQueryable<T> query = _context.Set<T>();
+            IQueryable<T> query = _dbSet;
             foreach (var includeProperty in includeProperties)
             {
                 query = query.Include(includeProperty);
@@ -55,37 +54,37 @@ namespace BloodFloater.DAL.Impl
         }
         public T Get(int id)
         {
-            return _context.Set<T>().FirstOrDefault(x => x.Id == id);
+            return _dbSet.FirstOrDefault(x => x.Id == id);
         }
 
         public async Task<T> GetAsync(int id)
         {
-            return await _context.Set<T>().FirstOrDefaultAsync(x => x.Id == id);
+            return await _dbSet.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public T GetSingle(Expression<Func<T, bool>> predicate)
         {
-            return _context.Set<T>().Where(predicate).FirstOrDefault();
+            return _dbSet.Where(predicate).FirstOrDefault();
         }
 
         public async Task<T> GetSingleAsync(Expression<Func<T, bool>> predicate)
         {
-            return await _context.Set<T>().Where(predicate).FirstOrDefaultAsync();
+            return await _dbSet.Where(predicate).FirstOrDefaultAsync();
         }
 
         public IEnumerable<T> Get(Expression<Func<T, bool>> predicate)
         {
-            return _context.Set<T>().Where(predicate);
+            return _dbSet.Where(predicate).ToList();
         }
 
         public async Task<IEnumerable<T>> GetAsync(Expression<Func<T, bool>> predicate)
         {
-            return await _context.Set<T>().Where(predicate).ToListAsync();
+            return await _dbSet.Where(predicate).ToListAsync();
         }
 
         public T Get(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties)
         {
-            IQueryable<T> query = _context.Set<T>();
+            IQueryable<T> query = _dbSet;
             foreach (var includeProperty in includeProperties)
             {
                 query = query.Include(includeProperty);
@@ -96,7 +95,7 @@ namespace BloodFloater.DAL.Impl
 
         public async Task<T> GetAsync(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties)
         {
-            IQueryable<T> query = _context.Set<T>();
+            IQueryable<T> query = _dbSet;
             foreach (var includeProperty in includeProperties)
             {
                 query = query.Include(includeProperty);
@@ -109,6 +108,7 @@ namespace BloodFloater.DAL.Impl
         {
             _dbSet.Add(entity);
             Commit();
+
             return entity.Id;
         }
 

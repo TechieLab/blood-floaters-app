@@ -1,49 +1,9 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>Register Donor</ion-title>
-  </ion-navbar>
-</ion-header>
 <ion-content padding>
   <div>
-    You are successfull registed as DONOR.
+    You are successfull registed as DONOR and please update user profile.
   </div>
-  <ion-card>
-    <ion-item>
-      <ion-label>Full Name</ion-label>
-      {{profile.FullName}}
-    </ion-item>
-    <ion-item>
-      <ion-label>Blood Group</ion-label>
-     {{profile.BloodGroup}}
-    </ion-item>
-  </ion-card>
-  <ion-card>
-    <ion-list>
-      <ion-item>
-        <ion-label>Mobile</ion-label>{{profile.Contact.Mobile}}
-      </ion-item>
-      <ion-item>
-        <ion-label >Email</ion-label>{{profile.Contact.EmailId}}
-      </ion-item>
-    </ion-list>
-  </ion-card>
-  <ion-card>
-    <ion-list>
-      <ion-item>
-        <ion-label >Address</ion-label>{{profile.Address.AddressLine1}}
-      </ion-item>
-      <ion-item>
-        <ion-label >Country</ion-label>{{profile.Address.Country}}
-      </ion-item>
-      <ion-item>
-        <ion-label >State</ion-label>{{profile.Address.State}}
-      </ion-item>
-      <ion-item>
-        <ion-label >City</ion-label>{{profile.Address.City}}
-      </ion-item>
-      <ion-item>
-        <ion-label >Zipcode</ion-label>{{profile.Address.Zipcode}}
-      </ion-item>
-    </ion-list>
-  </ion-card>
+  <profile-detail-page></profile-detail-page>
+  <div padding>
+    <button ion-button color="primary" block (click)="updateProfile()">Update</button>
+  </div>
 </ion-content>

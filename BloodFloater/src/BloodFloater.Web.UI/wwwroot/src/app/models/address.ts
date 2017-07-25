@@ -1,6 +1,7 @@
 
 export class Address
 {
+    Id: number;
     AddressLine1: string;
     AddressLine2: string;
     Street: string;
@@ -8,7 +9,9 @@ export class Address
     Landmark: string;
     IsOfficeAddress: boolean;
     IsPermanetAddress: boolean;
-    StateId: string;
-    CountryId: string;
+    StateId: number;
+    CountryId: number;
     Zipcode: number;
+    ProfileId : number;
+
 }

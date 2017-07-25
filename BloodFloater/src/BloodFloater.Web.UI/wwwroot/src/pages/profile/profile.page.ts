@@ -6,22 +6,21 @@ import {Constants} from '../../app/common/constants';
 import { Profile, User, Media } from '../../app/models';
 import { EditProfilePage } from './editProfile.page';
 import { ChangePasswordPage } from '../account/change-password.page'
-import { UserService, IUserService } from '../../app/services/user.service';
+import { ProfileService, IProfileService } from './profile.service';
 import { StorageService } from '../../app/services/storage.service';
 import { IUploadService, UploadService } from '../../app/services/upload.service';
 
 @Component({
-  selector: 'profile-page',
+  selector: 'profile-detail-page',
   templateUrl: 'profile.html',
-  entryComponents: [ChangePasswordPage],
-  providers: [UserService]
+  entryComponents: [],
+  providers: [ProfileService, UploadService]
 })
 
 export class ProfilePage implements OnInit {
   selectedItem: any;
   editMode: boolean = false;
   profile: Profile;
-  user: User;
   loading: Loading;
   lastImage: string;
   isopen: Boolean = false;
@@ -36,10 +35,9 @@ export class ProfilePage implements OnInit {
     public toastCtrl: ToastController,
     public loadingCtrl: LoadingController,
     @Inject(UploadService) public uploadService: IUploadService,
-    @Inject(UploadService) public userService: IUserService) {
+    @Inject(ProfileService) public profileService: IProfileService) {
     // If we navigated to this page, we will have an item available as a nav param
     this.selectedItem = navParams.get('item');
-    this.uploadService = uploadService;
 
     this.profile = new Profile();
   }
@@ -70,18 +68,16 @@ export class ProfilePage implements OnInit {
   }
 
   removePhoto() {
-    this.profile.Media = new Media();
-    this.user.Profile  = this.profile; 
-    this.userService.put(this.user).subscribe((res) => {
+    this.profile.Photos.push(new Media());
+    this.profileService.put(this.profile).subscribe((res) => {
       this.presentToast('Photo removed succesfully');
     });
   }
 
   getProfile() {
-    this.userService.getById(null).subscribe((result) => {
+    this.profileService.getById(StorageService.getContext().ProfileId).subscribe((result) => {
       if (result) {
-        this.user = result;
-        this.profile = result.Profile;
+        this.profile = result;
       }
     });
   }

@@ -29,7 +29,7 @@ namespace BloodFloater.Web.Api.Controllers
             var key = HttpContext.Request.Query["key"].ToString();
             var value = HttpContext.Request.Query["value"].ToString();
 
-            return Mapper.Map<List<DomainModels.Lookup>, List<Lookup>>(_lookupService.GetByKeyValue(key, value));
+            return _lookupService.GetByKeyValue(key, value);
         }
     }
 }

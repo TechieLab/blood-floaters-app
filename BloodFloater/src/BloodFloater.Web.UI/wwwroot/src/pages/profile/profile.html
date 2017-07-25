@@ -28,8 +28,8 @@
 </ion-header>
 <ion-content class="home">
   <div text-center>
-    <ion-avatar>
-      <img src="{{profile.Media.ImageUrl}}" />
+    <ion-avatar *ngIf="profile.Photos && profile.Photos.length">
+      <img src="{{profile.Photos[0].ImageUrl}}" />
     </ion-avatar>
     <button buttons-end ion-button (click)="changePhoto()">
                   <ion-icon name="pencil"></ion-icon> change
@@ -53,7 +53,7 @@
         <ion-col col-4>
           <ion-card-content>
             <ion-card-title>
-              Ads Posted
+              No of Donatations
             </ion-card-title>
             <ion-card-title>
               0
@@ -63,7 +63,7 @@
         <ion-col col-4>
           <ion-card-content>
             <ion-card-title>
-              Ads Responded
+              Last Donoation
             </ion-card-title>
             <ion-card-title>
               0
@@ -88,24 +88,40 @@
       Contact Detail
     </ion-card-header>
     <ion-card-content>
-      <!-- Hello World -->
-    </ion-card-content>
-    <ion-list>
-      <button ion-item>
+      <ion-list>
+        <button ion-item>
                 <ion-icon name="mail" item-left></ion-icon>
-                <a class="plainText" href="mailto:smkamranqadri@yahoo.com">{{profile.Contact.EmailId}}</a>
-            </button>
+                <a class="plainText" href="mailto:{{profile.Contact.EmailId}}">{{profile.Contact.EmailId}}</a>
+      </button>
 
-      <button ion-item>
-                <ion-icon name="skype" ios="logo-skype" md="logo-skype" item-left></ion-icon>
-                <a class="plainText" href="skype:smkamranqadri">{{profile.Contact.SkypeId}}</a>
-            </button>
-
-      <button ion-item>
+        <button ion-item>
                 <ion-icon name="call" item-left></ion-icon>
-                <a class="plainText" href="tel:+923008203588">{{profile.Contact.PhoneNumber}}</a>
+                <a class="plainText" href="tel:{{profile.Contact.EmailId}}">{{profile.Contact.PhoneNumber}}</a>
             </button>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-card>
+    <ion-card-header>
+       Address Detail
+    </ion-card-header>
+    <ion-list>
+      <ion-item>
+        <ion-label >Address</ion-label>{{profile.Address.AddressLine1}}
+      </ion-item>
+      <ion-item>
+        <ion-label >Country</ion-label>{{profile.Address.Country}}
+      </ion-item>
+      <ion-item>
+        <ion-label >State</ion-label>{{profile.Address.State}}
+      </ion-item>
+      <ion-item>
+        <ion-label >City</ion-label>{{profile.Address.City}}
+      </ion-item>
+      <ion-item>
+        <ion-label >Zipcode</ion-label>{{profile.Address.Zipcode}}
+      </ion-item>
     </ion-list>
   </ion-card>
-
 </ion-content>

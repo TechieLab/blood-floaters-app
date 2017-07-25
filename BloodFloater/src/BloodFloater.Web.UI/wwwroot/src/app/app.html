@@ -8,8 +8,8 @@
        </span>
       </h2>
       <div *ngIf="isUserAuthenticated" (click)="gotoProfilePage()">
-        <ion-avatar item-left>
-          <img src="{{profile.Media.ImageUrl}}">
+        <ion-avatar item-left *ngIf="profile.Photos.length">
+          <img src="{{profile.Photos[0].ImageUrl}}">
         </ion-avatar>
         <h2>
           {{currentUserName}}

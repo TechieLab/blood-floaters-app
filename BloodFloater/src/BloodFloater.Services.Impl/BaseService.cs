@@ -78,6 +78,16 @@ namespace BloodFloater.Services.Impl
             return Mapper.Map<Task<IEnumerable<TSEntity>>, Task<IEnumerable<TDEntity>>>(_repository.GetAsync(predicate));
         }
 
+        public TDEntity GetSingle(Expression<Func<TSEntity, bool>> predicate)
+        {
+            return Mapper.Map<TSEntity, TDEntity>(_repository.GetSingle(predicate));
+        }
+
+        public Task<TDEntity> GetSingleAsync(Expression<Func<TSEntity, bool>> predicate)
+        {
+            return Mapper.Map<Task<TSEntity>, Task<TDEntity>>(_repository.GetSingleAsync(predicate));
+        }
+
         public TDEntity Get(Expression<Func<TSEntity, bool>> predicate,
             params Expression<Func<TSEntity, object>>[] includeProperties)
         {

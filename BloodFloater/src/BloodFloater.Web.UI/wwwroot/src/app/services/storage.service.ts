@@ -17,7 +17,7 @@ export class StorageService {
     }
 
     static getUserId(): any {
-        return localStorage.getItem(Client_Id);
+        return this.getContext().Id;
     }
 
     static setUserId(item: any): any {

@@ -4,8 +4,8 @@ import { NavController, NavParams } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 import { OrderBy } from '../app/pipes/orderBy';
 import {tokenNotExpired} from 'angular2-jwt';
-import { AppComponents, featuredComponents, appPages, authPages } from './common/componentConstants';
-import { Welcome } from '../pages/welcome/welcome.page';
+import { AppComponents, appPages, authPages } from './common/componentConstants';
+import { WelcomePage } from '../pages/welcome/welcome.page';
 import { ProfilePage } from '../pages/profile/profile.page';
 import { LoginPage } from '../pages/account/login.page';
 import { SearchPage } from '../pages/search/search.page';
@@ -13,13 +13,12 @@ import { HomePage } from '../pages/home/home.page';
 import { AuthGuard, IAuthGuard } from '../app/services/guard.service';
 import { AccountService, IAccountService } from '../pages/account/account.service';
 import { StorageService } from '../app/services/storage.service';
-import { UserService, IUserService } from '../app/services/user.service';
-import {Profile} from '../app/models/profile';
-import {User} from '../app/models/user';
+import {ProfileService, IProfileService } from '../pages/profile/profile.service';
+import {Profile, User} from '../app/models';
 
 @Component({
   templateUrl: 'app.html',
-  entryComponents: [AppComponents, featuredComponents, LoginPage, HomePage, SearchPage],
+  entryComponents: [AppComponents, LoginPage, HomePage, SearchPage],
   providers: [AuthGuard]
 })
 export class MyApp implements OnInit {
@@ -37,7 +36,7 @@ export class MyApp implements OnInit {
     public events: Events,
     @Inject(AuthGuard) public authGuard: IAuthGuard,
     @Inject(AccountService) public accountService: IAccountService,
-    @Inject(UserService) public userService: IUserService
+    @Inject(ProfileService) public profileService: IProfileService
   ) {
 
     this.initializeApp();
@@ -81,9 +80,9 @@ export class MyApp implements OnInit {
   }
 
   getProfile() {
-    this.userService.getById(StorageService.getUserId()).subscribe((result) => {
+    this.profileService.getById(StorageService.getContext().ProfileId).subscribe((result) => {
       if (result) {
-        this.profile = result.Profile;
+        this.profile = result;
       }
     });
   }
@@ -100,7 +99,9 @@ export class MyApp implements OnInit {
 
   ngOnInit() { // THERE IT IS!!!  debugger;
     this.isUserAuthenticated = this.authGuard.canActivate();
-    this.currentUserName = StorageService.getItem('User_Name');
+    if(StorageService.getContext()){      
+      this.currentUserName = StorageService.getContext().UserName;
+    }
 
     if (this.isUserAuthenticated) {
       if(tokenNotExpired(null,StorageService.getToken())){
@@ -111,12 +112,12 @@ export class MyApp implements OnInit {
           this.rootPage = LoginPage;
         }
       } else {
-        this.rootPage = Welcome;
+        this.rootPage = WelcomePage;
       }
 
       this.events.subscribe('user:login', (res) => {
         this.isUserAuthenticated = this.authGuard.canActivate();
-        this.currentUserName = StorageService.getItem('User_Name');
+        this.currentUserName = StorageService.getContext().UserName;
 
         if (this.isUserAuthenticated) {
           this.pages = this.pages.concat(authPages);

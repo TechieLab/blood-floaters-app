@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using AutoMapper;
 using BloodFloater.DAL;
 using BloodFloater.Models;
-using Microsoft.Extensions.Logging.Abstractions;
-using MongoDB.Driver;
 
 namespace BloodFloater.Services.Impl
 {
@@ -17,9 +14,24 @@ namespace BloodFloater.Services.Impl
             _lookupRepository = lookupRepository;
         }
 
-        public List<Lookup> GetByKeyValue(string key, string value)
+        public List<ViewModels.Lookup> GetByKeyValue(string key, string value)
         {
-            return null;
+            List<ViewModels.Lookup> list;
+
+            if (!string.IsNullOrEmpty(key) && !string.IsNullOrEmpty(value))
+            {
+                list =
+                    Mapper.Map<List<Lookup>, List<ViewModels.Lookup>>(
+                        _lookupRepository.Get(l => l.Key == key && l.Value == value).ToList());
+            }
+            else
+            {
+                list =
+                    Mapper.Map<List<Lookup>, List<ViewModels.Lookup>>(
+                        _lookupRepository.Get(l => l.Key == key).ToList());
+            }
+
+            return list;
         }
     }
 }

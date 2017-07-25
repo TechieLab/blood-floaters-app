@@ -19,13 +19,15 @@ namespace BloodFloater.ViewModels
 
         public Contact Contact { get; set; }
 
-        public Media Media { get; set; }
+        public List<Media> Photos { get; set; }
+
+        public int UserId { get; set; }
 
         public Profile()
         {
             Address = new Address();
             Contact = new Contact();
-            Media = new Media();
+            Photos = new List<Media>();
         }
     }
 }

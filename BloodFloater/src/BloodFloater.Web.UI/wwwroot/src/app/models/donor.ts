@@ -1,8 +1,8 @@
 import {Profile,Donation} from '../../app/models';
 
 export class Donor{
-    public profileId : number;
-    public donationId : number;
+    public ProfileId : number;
+    public DonationId : number;
 
     public Profile : Profile;
     public Donation : Donation;

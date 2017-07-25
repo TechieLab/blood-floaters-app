@@ -28,15 +28,48 @@ namespace BloodFloater.Web.Api.Controllers
         }
 
         [HttpPost]
-        public virtual void Post([FromBody]Profile value)
+        public IActionResult Post([FromBody]Profile value)
         {
-            _profileService.Create(Mapper.Map<Profile, DomainModels.Profile>(value));
+            try
+            {
+                return new OkObjectResult(new Result
+                {
+                    Success = _profileService.Create(Mapper.Map<Profile, DomainModels.Profile>(value)) != 0,
+                    Message = "Profile Updated",
+                    Content = _profileService.Create(Mapper.Map<Profile, DomainModels.Profile>(value))
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new Result
+                {
+                    Success = _profileService.Update(Mapper.Map<Profile, DomainModels.Profile>(value)) != 0,
+                    Message = "Profile Update Failed",
+                    Content = ex.InnerException.Message
+                });
+            }
         }
 
         [HttpPut]
-        public void Put([FromBody]Profile value)
+        public IActionResult Put([FromBody]Profile value)
         {
-            _profileService.Update(Mapper.Map<Profile, DomainModels.Profile>(value));
+            try
+            {
+                return new OkObjectResult(new Result
+                {
+                    Success = _profileService.Update(Mapper.Map<Profile, DomainModels.Profile>(value)) != 0,
+                    Message = "Profile Updated"
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new Result
+                {
+                    Success = false,
+                    Message = "Profile Update Failed",
+                    Content = ex.InnerException.Message
+                });
+            }
         }
     }
-}
+} 

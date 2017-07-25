@@ -1,23 +1,24 @@
 
 import {Address, Contact,Media, BaseEntity} from './';
 
-export class Profile extends BaseEntity
+export class Profile
 {   
+     Id : number;
      FullName: string;
      Age : number;
      Gender: string;  
      BloodGroup : string;
      Address : Address;
-     Contact: Contact;   
-     Media : Media;    
+     Contact:  Contact;   
+     Photos : Array<Media>;    
      Status : string;
+     UserId : number;
 
      constructor(){
-         super();
-         
+
          this.FullName = '';    
          this.Address = new Address()
          this.Contact = new Contact();
-         this.Media = new Media();
+         this.Photos = new Array<Media>();
      }
 }

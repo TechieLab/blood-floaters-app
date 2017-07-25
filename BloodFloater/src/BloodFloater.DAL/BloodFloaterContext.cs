@@ -35,8 +35,6 @@ namespace BloodFloater.DAL
 
         public DbSet<Log> Logs { get; set; }
 
-       
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             foreach (var entity in modelBuilder.Model.GetEntityTypes())
@@ -53,16 +51,14 @@ namespace BloodFloater.DAL
             modelBuilder.Entity<Address>().Property(a => a.IsOfficeAddress).HasMaxLength(500);
             modelBuilder.Entity<Address>().Property(a => a.IsPermanetAddress).HasMaxLength(100);
             modelBuilder.Entity<Address>().Property(a => a.IsHomeAddress).HasMaxLength(100);
-            modelBuilder.Entity<Address>().Property(a => a.StateId);
-            modelBuilder.Entity<Address>().Property(a => a.CounntryId);
-            modelBuilder.Entity<Address>().HasOne(a => a.State);
-            modelBuilder.Entity<Address>().HasOne(a => a.Country);
+            modelBuilder.Entity<Address>().HasOne(a => a.Profile);
 
             modelBuilder.Entity<Contact>().Property(a => a.PhoneNumber).HasMaxLength(10).IsRequired();
             modelBuilder.Entity<Contact>().Property(a => a.LandLineNumber).HasMaxLength(12);
             modelBuilder.Entity<Contact>().Property(a => a.AltEmailId).HasMaxLength(100);
             modelBuilder.Entity<Contact>().Property(a => a.EmailId).HasMaxLength(100).IsRequired();
             modelBuilder.Entity<Contact>().Property(a => a.AltPhoneNumber).HasMaxLength(12);
+            modelBuilder.Entity<Contact>().HasOne(a => a.Profile);
 
             modelBuilder.Entity<Donation>().HasOne(a => a.DonatedAt);
             modelBuilder.Entity<Donation>().Property(a => a.DontatedOn).HasMaxLength(100);
@@ -75,7 +71,7 @@ namespace BloodFloater.DAL
             modelBuilder.Entity<Lookup>().Property(a => a.Key).HasMaxLength(100).IsRequired();
             modelBuilder.Entity<Lookup>().Property(a => a.Value).HasMaxLength(100).IsRequired();
             modelBuilder.Entity<Lookup>().Property(a => a.Name).HasMaxLength(100);
-            modelBuilder.Entity<Lookup>().Property(a => a.Description).HasMaxLength(100);
+            modelBuilder.Entity<Lookup>().Property(a => a.Description).HasMaxLength(500);
 
             // Photos
             modelBuilder.Entity<Media>().Property(p => p.Title).HasMaxLength(100);
@@ -83,9 +79,9 @@ namespace BloodFloater.DAL
             modelBuilder.Entity<Profile>().Property(a => a.FullName).HasMaxLength(100).IsRequired();
             modelBuilder.Entity<Profile>().Property(a => a.Age).HasMaxLength(100);
             modelBuilder.Entity<Profile>().Property(a => a.Gender).HasMaxLength(100);
-            modelBuilder.Entity<Profile>().Property(a => a.DoB).HasMaxLength(100).IsRequired(); ;
-            modelBuilder.Entity<Profile>().HasMany(a => a.Contacts);
-            modelBuilder.Entity<Profile>().HasMany(a => a.Addresses);
+            modelBuilder.Entity<Profile>().Property(a => a.DoB).HasMaxLength(100).IsRequired();
+            modelBuilder.Entity<Profile>().HasOne(a => a.Contact).WithOne(a=>a.Profile);
+            modelBuilder.Entity<Profile>().HasOne(a => a.Address).WithOne(a=>a.Profile);
             modelBuilder.Entity<Profile>().HasMany(a => a.Photos);
             modelBuilder.Entity<Profile>().HasOne(a => a.User);
 

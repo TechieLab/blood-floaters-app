@@ -7,28 +7,23 @@ import {PageConstants} from '../../app/common/pageConstants';
 import {DonorService, IDonorService} from './donor.service';
 import {ProfileService, IProfileService} from '../profile/profile.service';
 import {StorageService} from '../../app/services/storage.service';
+import{EditProfilePage} from '../';
 
-@Component({selector: 'add-edit-donor-page', templateUrl: 'add-edit-donor.html', providers: []})
+@Component({selector: 'donor-details-page', templateUrl: 'details.html', providers: []})
 
 export class DonorDetailsPage implements OnInit {
     private profile : Profile;
-    constructor( @Inject(DonorService)public donorService : IDonorService, 
+
+    constructor( public navCtrl : NavController, @Inject(DonorService)public donorService : IDonorService, 
     @Inject(ProfileService)public profileService : IProfileService){
 
     }
-
+    
     ngOnInit() {
-       this.getProfile();
-    }
+       
+    }   
 
-    getProfile() {
-        this
-            .profileService
-            .getById(StorageService.getUserId())
-            .subscribe((res) => {
-                if (res) {
-                    this.profile = res;
-                }
-            });
+    updateProfile(){
+        this.navCtrl.push(EditProfilePage);       
     }
 }

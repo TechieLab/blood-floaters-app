@@ -1,6 +1,3 @@
-import '../../rxjs-operators';
-import 'rxjs/add/operator/map';
-
 import { Injectable, Optional } from '@angular/core';
 import { Http, Headers, Response, RequestOptions, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';

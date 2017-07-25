@@ -28,20 +28,24 @@ namespace BloodFloater.Services.Impl
             var userId = _userRepository.Add(entity);
             if (userId != 0)
             {
-                var contacts = new List<DomainModels.Contact>
-                {
+                var contact =
                     new DomainModels.Contact
                     {
                         EmailId = entity.EmailId,
                         PhoneNumber = entity.PhoneNumber
-                    }
+                    };
+
+                var address = new Address
+                {
+                    AddressLine1 = ""
                 };
 
                 var profile = new DomainModels.Profile
                 {
                     UserId = userId,
                     FullName = entity.UserName,
-                    Contacts = contacts,
+                    Contact = contact,
+                    Address = address,
                     DoB = new DateTime()
                 };
 
